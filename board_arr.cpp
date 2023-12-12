@@ -13,6 +13,14 @@ int main()
             chess_board[i][j]='P';
         }
     }
+    //Black Pawns
+    for(int i=6;i==6;i++)
+    {
+        for(int j=0;j<8;j++)
+        {
+            chess_board[i][j]='P';
+        }
+    }
     //Displaying each index of the array in 8 by 8 form
     for(int k=0;k<=7;k++)
     {
