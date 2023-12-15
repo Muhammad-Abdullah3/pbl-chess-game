@@ -18,10 +18,130 @@ int main()
     {
         for(int j=0;j<8;j++)
         {
-            chess_board[i][j]='P';
+            chess_board[i][j]='p';
         }
     }
-    //Displaying each index of the array in 8 by 8 form
+    //white rook
+    for (int i=0;i==0;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==0||j==7)
+			{
+    		 chess_board[i][j]='R';
+			}
+
+		}
+	}
+	//Black rook.
+    for (int i=7;i==7;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==0||j==7)
+			{
+    		    chess_board[i][j]='r';
+			}
+
+		}
+	}
+	//white Knight.
+	for (int i=0;i==0;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==1||j==6)
+			{
+    		    chess_board[i][j]='N';
+			}
+
+		}
+	}
+	//Black knight
+	for (int i=7;i==7;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==1||j==6)
+			{
+    		    chess_board[i][j]='n';
+			}
+
+		}
+	}
+	//White Bishop.
+	for (int i=0;i==0;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==2||j==5)
+			{
+    		    chess_board[i][j]='B';
+			}
+
+		}
+	}
+	//Black bishop
+	  for (int i=7;i==7;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==2||j==5)
+			{
+    		    chess_board[i][j]='b';
+			}
+
+		}
+	}
+	//White Queen
+	for (int i=0;i==0;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==3)
+			{
+    		    chess_board[i][j]='Q';
+			}
+
+		}
+	}
+	//Black queen
+	for (int i=7;i==7;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==3)
+			{
+    		    chess_board[i][j]='q';
+			}
+
+		}
+	}
+	//White king
+	for (int i=0;i==0;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==4)
+			{
+    		    chess_board[i][j]='K';
+			}
+
+		}
+	}
+	//black King
+	  for (int i=7;i==7;i++)
+    {
+    	for (int j=0;j<8;j++)
+    	{
+    		if (j==4)
+			{
+    		    chess_board[i][j]='k';
+			}
+
+		}
+	}
+	//displaying array by each index.
     for(int k=0;k<=7;k++)
     {
         for(int l=0;l<=7;l++)
