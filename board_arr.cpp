@@ -143,13 +143,13 @@ int main()
 	}
 	//displaying array by each index.
     for(int k=0;k<=7;k++)
-    {
+    {   //Displaying the Row Borders
+        cout<<"--------------------------------"<<endl;
         for(int l=0;l<=7;l++)
         {
-            cout<<setw(7)<<chess_board[k][l];
+            cout<<setw(4)<<chess_board[k][l];
         }
         cout<<endl;
-        cout<<setw(4);
     }
     return 0;
 }
