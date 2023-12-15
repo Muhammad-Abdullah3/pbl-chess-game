@@ -1,5 +1,5 @@
 #include <iostream>
-#include <iomanip>
+#include <iomanip> 
 using namespace std;
 int main() {
     int boardSize = 8;
@@ -32,6 +32,6 @@ int main() {
     for (int col = 0; col < boardSize; ++col) {
         cout << "-----";
     }
-    cout << "-\n";
+    cout << "\n";
     return 0;
 }
