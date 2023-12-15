@@ -145,6 +145,7 @@ int main()
     for(int k=0;k<=7;k++)
     {   //Displaying the Row Borders
         cout<<"--------------------------------"<<endl;
+        //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
             cout<<setw(4)<<chess_board[k][l];
