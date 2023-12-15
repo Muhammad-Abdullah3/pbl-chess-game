@@ -12,7 +12,7 @@ int main() {
             // Print vertical boundary line if not in the last column
             if (col < boardSize - 1) {
                 cout << "|";
-            }
+            }    
         }
         cout << "\n"; // Move to the next line after each row
 
