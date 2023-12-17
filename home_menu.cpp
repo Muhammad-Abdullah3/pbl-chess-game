@@ -15,11 +15,13 @@ int main()
     cin>>entr_num;
 	if (entr_num==1)
 {
+	system("CLS");
 	cout<<"Chose player 1:";
 	cout<<"Chose Player 2:";
 }
 else if(entr_num==2)
 {
+	system("CLS");
 	cout<<"Instructions:";
 	cout<<"1- Player 1 will play as white, and player 2 will play as black. \n2- Players will be chosen from already added player profiles.";
 	cout<<"\n3- White pieces are in uppercase alphabets.\n4-Black pieces are in lowercase alphabets.";
@@ -31,6 +33,7 @@ else if(entr_num==2)
 }
 else if (entr_num==6)
 {
+	system("CLS");
 	cout<<"You have successfully exited the game.";
 	exit(0);
 }
