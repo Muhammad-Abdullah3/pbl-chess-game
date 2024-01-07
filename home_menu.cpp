@@ -33,9 +33,7 @@ else if(entr_num==2)
 }
 else if (entr_num==6)
 {
-	system("CLS");
-	cout<<"You have successfully exited the game.";
-	exit(0);
+	
 }	
 }
 int main()
