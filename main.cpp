@@ -8,7 +8,7 @@ using namespace std;
 //Function to show instructions
 void instr()
 {
-system("CLS");
+    system("CLS");
 	cout<<"Instructions:";
 	cout<<"1- Player 1 will play as white, and player 2 will play as black. \n2- Players will be chosen from already added player profiles.";
 	cout<<"\n3- White pieces are in uppercase alphabets.\n4-Black pieces are in lowercase alphabets.";
