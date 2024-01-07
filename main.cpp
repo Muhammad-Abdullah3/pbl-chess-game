@@ -5,6 +5,14 @@
 #include<string>
 #include<stdio.h>
 using namespace std;
+//Function to exit the game 
+void exit_game()
+{
+    system("CLS");
+	cout<<"You have successfully exited the game.";
+	exit(0);
+}
+//Home menu Function
 void home_menu()
 {
 	int entr_num=0;
@@ -36,13 +44,12 @@ else if(entr_num==2)
 }
 else if (entr_num==6)
 {
-	system("CLS");
-	cout<<"You have successfully exited the game.";
-	exit(0);
+    exit_game();
 }
 }
-
+//Main Game Function
 int main()
 {
+    home_menu();
     return 0;
 }
