@@ -2,7 +2,7 @@
 #include<conio.h>
 #include<stdio.h>
 using namespace std;
-int main()
+void home_menu()
 {
 	int entr_num=0;
 	cout<<"Welcome to the Game:"<<endl;
@@ -36,6 +36,9 @@ else if (entr_num==6)
 	system("CLS");
 	cout<<"You have successfully exited the game.";
 	exit(0);
+}	
 }
-return 0;	
+int main()
+{
+	return 0;
 }

@@ -2,6 +2,8 @@
 #include<conio.h>
 #include<iomanip>
 using namespace std;
+//Creating a function for moving pieces
+int move_piec(int&,int,int);
 int main()
 {
     char chess_board[8][8]={' '};
