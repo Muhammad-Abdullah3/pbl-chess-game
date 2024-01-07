@@ -1,7 +1,8 @@
 #include <iostream>
 #include <iomanip> 
 using namespace std;
-int main() {
+int main() 
+{
     int boardSize = 8;
 
     for (int row = 0; row < boardSize; ++row) {
