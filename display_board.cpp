@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iomanip> 
 using namespace std;
-int main() 
+void disply_board(string a,string b) 
 {
     int boardSize = 8;
 

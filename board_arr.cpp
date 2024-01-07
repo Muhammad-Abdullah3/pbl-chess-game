@@ -1,12 +1,26 @@
 #include<iostream>
 #include<conio.h>
 #include<iomanip>
+char chess_board[8][8]={' '};
 using namespace std;
 //Creating a function for moving pieces
-int move_piec(int&,int,int);
+//Displaying the board
+void display_board(string a="Abdullah",string b="Waheed")
+{
+	//displaying array by each index.
+    for(int k=0;k<=7;k++)
+    {   //Displaying the Row Borders
+        cout<<"--------------------------------"<<endl;
+        //Displaying the Content of each box
+        for(int l=0;l<=7;l++)
+        {
+            cout<<setw(4)<<chess_board[k][l];
+        }
+        cout<<endl;
+	}
+}
 int main()
 {
-    char chess_board[8][8]={' '};
     //White pawns
     for(int i=1;i==1;i++)
     {
@@ -143,16 +157,5 @@ int main()
 
 		}
 	}
-	//displaying array by each index.
-    for(int k=0;k<=7;k++)
-    {   //Displaying the Row Borders
-        cout<<"--------------------------------"<<endl;
-        //Displaying the Content of each box
-        for(int l=0;l<=7;l++)
-        {
-            cout<<setw(4)<<chess_board[k][l];
-        }
-        cout<<endl;
-    }
-    return 0;
+	return 0;
 }
