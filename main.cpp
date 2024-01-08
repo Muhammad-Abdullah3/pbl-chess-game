@@ -6,7 +6,19 @@
 #include<stdio.h>
 using namespace std;
 char chess_board[8][8] = {' '};
-//New game initializing function
+void home_menu();
+void new_game();
+void board_set();
+void instr();
+void add_profile();
+void del_profile();
+void chck_stats();
+void display_board();
+int main()
+{
+	home_menu();
+    return 0;
+}
 void new_game()
 {
 	system("CLS");
@@ -200,12 +212,6 @@ else if(entr_num==2)
 {
 	instr();
 }
-else if (entr_num==6)
-{
-	system("CLS");
-	cout<<"You have successfully exited the game.";
-	exit(0);
-}
 else if (entr_num==3)
 {
 	add_profile();
@@ -214,9 +220,16 @@ else if (entr_num==4)
 {
 	del_profile();
 }
+
 else if (entr_num==5)
 {
 	chck_stats();
+}
+else if (entr_num==6)
+{
+	system("CLS");
+	cout<<"You have successfully exited the game.";
+	exit(0);
 }
 else
 {
@@ -226,11 +239,4 @@ else
 	system("CLS");
 	home_menu();
 }
-}
-
-
-int main()
-{
-	home_menu();
-    return 0;
 }
