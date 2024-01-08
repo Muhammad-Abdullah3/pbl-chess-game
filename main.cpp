@@ -13,7 +13,7 @@ void instr();
 void add_profile();
 void del_profile();
 void chck_stats();
-void display_board();
+void display_board(string,string);
 int main()
 {
 	home_menu();
@@ -24,6 +24,7 @@ void new_game()
 	system("CLS");
 	cout<<"Chose player 1:";
 	cout<<"Chose Player 2:";
+
 }
 //Setting board pieces for the first time in array
 void board_set()
@@ -239,4 +240,19 @@ else
 	system("CLS");
 	home_menu();
 }
+}
+//Displaying the board
+void display_board(string a,string b)
+{
+	//displaying array by each index.
+    for(int k=0;k<=7;k++)
+    {   //Displaying the Row Borders
+        cout<<"--------------------------------"<<endl;
+        //Displaying the Content of each box
+        for(int l=0;l<=7;l++)
+        {
+            cout<<setw(4)<<chess_board[k][l];
+        }
+        cout<<endl;
+	}
 }
