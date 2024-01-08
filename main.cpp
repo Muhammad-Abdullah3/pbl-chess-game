@@ -5,7 +5,7 @@
 #include<string>
 #include<stdio.h>
 using namespace std;
-char chess_board[8][8] = {' '};
+char chess_board[8][8] = {'.'};
 void home_menu();
 void new_game();
 void board_set();
@@ -22,9 +22,20 @@ int main()
 void new_game()
 {
 	system("CLS");
+	//variable to count the player turn
+	int tot_mov = 0;
+	//variable to count black and white's turn individually
+	int white_mov = 0, black_mov = 0;
+	/*
 	cout<<"Chose player 1:";
 	cout<<"Chose Player 2:";
-
+	
+	
+	Player chosing code
+	
+	*/
+	//calling board set function
+	board_set();
 }
 //Setting board pieces for the first time in array
 void board_set()
@@ -251,8 +262,12 @@ void display_board(string a,string b)
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
-            cout<<setw(4)<<chess_board[k][l];
+            cout<<setw(4)<<chess_board[k][l]<<"";
         }
         cout<<endl;
 	}
+}
+void move_piece(int fr_ro,int fr_col,int to_ro,int to_col)
+{
+		
 }
