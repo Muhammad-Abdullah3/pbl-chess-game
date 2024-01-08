@@ -231,5 +231,6 @@ else
 
 int main()
 {
+	home_menu();
     return 0;
 }
