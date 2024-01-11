@@ -8,6 +8,8 @@ using namespace std;
 char chess_board[8][8] = {'.'};
 void home_menu();
 void new_game();
+//moving a piece
+void move_piece(string);
 void board_set();
 void instr();
 void add_profile();
@@ -262,12 +264,19 @@ void display_board(string a,string b)
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
-            cout<<setw(4)<<chess_board[k][l]<<"";
+            cout<<" "<<chess_board[k][l]<<" |";
         }
         cout<<endl;
 	}
 }
-void move_piece(int fr_ro,int fr_col,int to_ro,int to_col)
+void move_piece(string a)
 {
-		
+//converting all characters in upper case
+a.at(0)=toupper(a.at(0));
+a.at(2)=toupper(a.at(2));
+//converting notation from string to integer array indices
+int fr_row = a[0]-'A';
+int fr_col = a[1]-'0';
+int to_row = a[2]-'A';
+int to_col = a[3]-'0';
 }
