@@ -13,7 +13,7 @@ bool isValidWhitePawnMove(int frRow, int frCol, int toRow, int toCol) {
     }
 
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
-    else if (frRow == 1 && toRow == frRow + 1 && toCol == frCol) {
+    else if (frRow == 1 && toRow == frRow + 2 && toCol == frCol) {
         return true;
     }
 
@@ -42,10 +42,10 @@ int main() {
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
     // Example usage
-    int frRow = 1;
-    int frCol = 2;
-    int toRow = 3;
-    int toCol = 2;
+    int frRow = 3;
+    int frCol = 5;
+    int toRow = 4;
+    int toCol = 5;
 
     if (isValidWhitePawnMove(frRow, frCol, toRow, toCol)) {
         cout << "Valid move for the white pawn." << endl;
