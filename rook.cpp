@@ -5,34 +5,46 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
     if (frRow == toRow) 
     {
         // Move along the same row
-        int startCol = min (frCol, toCol);
-        int endCol = max (frCol, toCol);
-        for (int col = startCol; col < endCol; ++col) {
-            if (chessboard[frRow][col - 1] != ' ') {
-                return false; // Path is not clear
-            }
-        }
-    } else if (frCol == toCol)  
-    {
-        // Move along the same column
-        int startRow = min(frRow, toRow);
-        int endRow = max(frRow, toRow);
-        if(startRow==frRow)
-        {   for (int row = startRow+1; row < endRow; ++row) 
+        if(frCol>toCol)
+        {
+            for (int col = frCol+1; col < toCol; ++col) 
             {
-                if (chessboard[row-1][frCol] != ' ') 
+                if (chessboard[frRow][col] != ' ') 
                 {
-                    return false; // Path is not clear
+                return false; // Path is not clear
                 }
             }
         }
         else
         {
-            for (int row = startRow+1; row < endRow; ++row) 
+            for (int col = frCol-1; col > toCol; --col) 
             {
-                if (chessboard[row-1][frCol] != ' '&&chessboard[row-1][frCol]) 
+                if (chessboard[frRow][col] != ' ') 
                 {
-                    return false; // Path is not clear
+                return false; // Path is not clear
+                }
+            }
+        }
+    } else if (frCol == toCol)  
+    {
+        // Move along the same column
+        if(frRow>toRow)
+        {
+            for (int row = frRow+1; row < toRow; ++row) 
+            {
+                if (chessboard[row][frCol] != ' ') 
+                {
+                return false; // Path is not clear
+                }
+            }
+        }
+        else
+        {
+            for (int row = frRow-1; row > toRow; --row) 
+            {
+                if (chessboard[row][frRow] != ' ') 
+                {
+                return false; // Path is not clear
                 }
             }
         }
@@ -76,10 +88,10 @@ int main() {
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 
-    int frRow = 6;
+    int frRow = 0;
     int frCol = 0;
     int toRow = 6;
-    int toCol = 2;
+    int toCol = 0;
 
     if (isValidWhiteRookMove(frRow, frCol, toRow, toCol, chessboard)) {
         cout << "Valid move for the white rook." << endl;
