@@ -28,6 +28,17 @@ bool isValidWhitePawnMove(int frRow, int frCol, int toRow, int toCol) {
 }
 
 int main() {
+    // Example usage with an empty chessboard
+    char chessboard[8][8] = {
+        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {'p','p','p','p', 'p' , 'p' , 'p' , 'p'},
+        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
+    };
     // Example usage
     int frRow = 2;
     int frCol = 3;
