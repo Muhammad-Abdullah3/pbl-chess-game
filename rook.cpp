@@ -2,7 +2,8 @@
 using namespace std;
 bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
     // Check if there are any pieces in the path
-    if (frRow == toRow) {
+    if (frRow == toRow) 
+    {
         // Move along the same row
         int startCol = min (frCol, toCol);
         int endCol = max (frCol, toCol);
@@ -11,13 +12,28 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
                 return false; // Path is not clear
             }
         }
-    } else if (frCol == toCol)  {
+    } else if (frCol == toCol)  
+    {
         // Move along the same column
         int startRow = min(frRow, toRow);
         int endRow = max(frRow, toRow);
-        for (int row = startRow; row < endRow; ++row) {
-            if (chessboard[row-1][frCol] != ' ') {
-                return false; // Path is not clear
+        if(startRow==frRow)
+        {   for (int row = startRow+1; row < endRow; ++row) 
+            {
+                if (chessboard[row-1][frCol] != ' ') 
+                {
+                    return false; // Path is not clear
+                }
+            }
+        }
+        else
+        {
+            for (int row = startRow+1; row < endRow; ++row) 
+            {
+                if (chessboard[row-1][frCol] != ' '&&chessboard[row-1][frCol]) 
+                {
+                    return false; // Path is not clear
+                }
             }
         }
     }
@@ -56,14 +72,14 @@ int main() {
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {'p','p','p','p', 'p' , 'p' , 'p' , 'p'},
+        {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 
-    int frRow = 0;
+    int frRow = 6;
     int frCol = 0;
-    int toRow = 5;
-    int toCol = 0;
+    int toRow = 6;
+    int toCol = 2;
 
     if (isValidWhiteRookMove(frRow, frCol, toRow, toCol, chessboard)) {
         cout << "Valid move for the white rook." << endl;
