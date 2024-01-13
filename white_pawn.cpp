@@ -1,8 +1,8 @@
 #include <iostream>
 using namespace std;
 bool isValidWhitePawnMove(int frRow, int frCol, int toRow, int toCol) {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
-    if (frRow < 0 || frRow > 8 || toRow < 1 || toRow > 8 || frCol < 1 || frCol > 8 || toCol < 1 || toCol > 8) {
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
     cout << "Invalid chessboard position." <<endl;
         return false;
     }
@@ -13,7 +13,7 @@ bool isValidWhitePawnMove(int frRow, int frCol, int toRow, int toCol) {
     }
 
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
-    if (frRow == 2 && toRow == frRow + 2 && toCol == frCol) {
+    if (frRow == 1 && toRow == frRow + 1 && toCol == frCol) {
         return true;
     }
 
@@ -30,7 +30,7 @@ bool isValidWhitePawnMove(int frRow, int frCol, int toRow, int toCol) {
 int main() {
     // Example usage with an empty chessboard
     char chessboard[8][8] = {
-        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {'R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'},
         {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
