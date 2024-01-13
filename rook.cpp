@@ -3,7 +3,7 @@ using namespace std;
 bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
     // Check if there are any pieces in the path
     if (frRow == toRow) {
-        // Move along the same rank
+        // Move along the same row
         int startFile = min (frCol, toCol) + 1;
         int endFile = max (frCol, toCol);
         for (int file = startFile; file < endFile; ++file) {
@@ -12,7 +12,7 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
             }
         }
     } else if (frCol == toCol)  {
-        // Move along the same file
+        // Move along the same column
         int startRank = min(frRow, toRow) + 1;
         int endRank = max(frRow, toRow);
         for (int rank = startRank; rank < endRank; ++rank) {
