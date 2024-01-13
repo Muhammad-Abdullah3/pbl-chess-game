@@ -1,9 +1,9 @@
 #include <iostream>
-
+using namespace std;
 bool isValidWhitePawnMove(int sourceRank, int sourceFile, int destRank, int destFile) {
     // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
     if (sourceRank < 1 || sourceRank > 8 || destRank < 1 || destRank > 8 || sourceFile < 1 || sourceFile > 8 || destFile < 1 || destFile > 8) {
-        std::cout << "Invalid chessboard position." << std::endl;
+    cout << "Invalid chessboard position." <<endl;
         return false;
     }
 
@@ -23,7 +23,7 @@ bool isValidWhitePawnMove(int sourceRank, int sourceFile, int destRank, int dest
     }
 
     // If none of the above conditions are met, the move is invalid
-    std::cout << "Invalid pawn move." << std::endl;
+    cout << "Invalid pawn move." << endl;
     return false;
 }
 
@@ -35,9 +35,9 @@ int main() {
     int destFile = 3;
 
     if (isValidWhitePawnMove(sourceRank, sourceFile, destRank, destFile)) {
-        std::cout << "Valid move for the white pawn." << std::endl;
+        cout << "Valid move for the white pawn." << endl;
     } else {
-        std::cout << "Invalid move for the white pawn." << std::endl;
+        cout << "Invalid move for the white pawn." << endl;
     }
 
     return 0;
