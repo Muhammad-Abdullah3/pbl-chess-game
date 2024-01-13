@@ -4,7 +4,7 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
     // Check if there are any pieces in the path
     if (frRow == toRow) {
         // Move along the same row
-        int startCol = min (frCol, toCol) + 1;
+        int startCol = min (frCol, toCol);
         int endCol = max (frCol, toCol);
         for (int col = startCol; col < endCol; ++col) {
             if (chessboard[frRow][col - 1] != ' ') {
@@ -13,10 +13,10 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
         }
     } else if (frCol == toCol)  {
         // Move along the same column
-        int startRank = min(frRow, toRow) + 1;
-        int endRank = max(frRow, toRow);
-        for (int rank = startRank; rank < endRank; ++rank) {
-            if (chessboard[rank - 1] [frCol - 1] != ' ') {
+        int startRow = min(frRow, toRow);
+        int endRow = max(frRow, toRow);
+        for (int row = startRow; row < endRow; ++row) {
+            if (chessboard[row-1][frCol] != ' ') {
                 return false; // Path is not clear
             }
         }
@@ -51,7 +51,7 @@ int main() {
     // Example usage with an empty chessboard
     char chessboard[8][8] = {
         {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {' ', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
@@ -60,10 +60,10 @@ int main() {
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 
-    int frRow = 1;
-    int frCol = 1;
+    int frRow = 0;
+    int frCol = 0;
     int toRow = 5;
-    int toCol = 1;
+    int toCol = 0;
 
     if (isValidWhiteRookMove(frRow, frCol, toRow, toCol, chessboard)) {
         cout << "Valid move for the white rook." << endl;
