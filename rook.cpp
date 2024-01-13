@@ -4,10 +4,10 @@ bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][
     // Check if there are any pieces in the path
     if (frRow == toRow) {
         // Move along the same row
-        int startFile = min (frCol, toCol) + 1;
-        int endFile = max (frCol, toCol);
-        for (int file = startFile; file < endFile; ++file) {
-            if (chessboard[frRow - 1][file - 1] != ' ') {
+        int startCol = min (frCol, toCol) + 1;
+        int endCol = max (frCol, toCol);
+        for (int col = startCol; col < endCol; ++col) {
+            if (chessboard[frRow][col - 1] != ' ') {
                 return false; // Path is not clear
             }
         }
