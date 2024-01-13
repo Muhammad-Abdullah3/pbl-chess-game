@@ -16,6 +16,7 @@ void add_profile();
 void del_profile();
 void chck_stats();
 void display_board(string,string);
+bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol);
 int main()
 {
 	home_menu();
@@ -279,4 +280,32 @@ int fr_row = a[0]-'A';
 int fr_col = a[1]-'0';
 int to_row = a[2]-'A';
 int to_col = a[3]-'0';
+}
+bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol) {
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+    cout << "Invalid chessboard position." <<endl;
+        return false;
+    }
+
+    // Check if the destination is one square forward
+    if (toRow == frRow + 1 && toCol == frCol) {
+        return true;
+    }
+
+    // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
+    else if (frRow == 1 && toRow == frRow + 2 && toCol == frCol) {
+        return true;
+    }
+
+    // Check if the destination is one square diagonally forward to capture an opponent's piece
+    else if (toRow == frRow + 1 && (toCol == frCol + 1 || toCol == frCol - 1)) {
+        return true;
+    }
+    // If none of the above conditions are met, the move is invalid
+    else
+    {
+        cout << "Invalid move." << endl;
+        return false;
+    }
 }
