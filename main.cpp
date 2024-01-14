@@ -20,6 +20,8 @@ bool checkWhitePawn(int, int, int, int);
 bool checkBlackPawn(int, int, int, int);
 bool checkDiagnolPath(int,int,int,int);
 bool checkLinearPath(int,int,int,int);
+bool checkWhiteRook(int,int,int,int);
+bool checkBlackRook(int,int,int,int);
 int main()
 {
 	home_menu();
@@ -461,3 +463,56 @@ bool checkLinearPath(int frRow, int frCol, int toRow, int toCol)
 
     return true; // Path is clear
 }
+//Checking White Rook move
+bool checkWhiteRook(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is along a row or a coloumn and destination is either free or an oponent piece is there
+    if ((frRow == toRow || frCol == toCol)&&(chess_board[toRow][toCol]==' '||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z'))) 
+	{
+        // Check if the path is clear
+        if (checkLinearPath(frRow, frCol, toRow, toCol)) 
+		{
+            return true;
+        } else 
+		{
+            cout << "There is a piece in the rook's path." << endl;
+        }
+    } else 
+	{
+        cout << "Invalid rook move." << endl;
+    }
+    return false;
+}
+//Checking Black Rook Move
+bool checkBlackRook(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is along a row or a coloumn and destination is either free or an oponent piece is there
+    if ((frRow == toRow || frCol == toCol)&&(chess_board[toRow][toCol]==' '||(chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z'))) 
+	{
+        // Check if the path is clear
+        if (checkLinearPath(frRow, frCol, toRow, toCol)) 
+		{
+            return true;
+        } else 
+		{
+            cout << "There is a piece in the rook's path." << endl;
+        }
+    } else 
+	{
+        cout << "Invalid rook move." << endl;
+    }
+    return false;
+}
+//Checking White Bishop Move
