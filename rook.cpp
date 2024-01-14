@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-bool isPathClear(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
+bool checkLinearPath(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
     // Check if there are any pieces in the path
     if (frRow == toRow) 
     {
@@ -63,7 +63,7 @@ bool isValidWhiteRookMove(int frRow, int frCol, int toRow, int toCol, char chess
     // Check if the move is along a rank or a file
     if (frRow == toRow || frCol == toCol) {
         // Check if the path is clear
-        if (isPathClear(frRow, frCol, toRow, toCol, chessboard)) {
+        if (checkLinearPath(frRow, frCol, toRow, toCol, chessboard)) {
             return true;
         } else {
             cout << "There is a piece in the rook's path." << endl;

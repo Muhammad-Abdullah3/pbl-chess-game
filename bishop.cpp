@@ -1,16 +1,16 @@
 #include <iostream>
 
-bool isPathClearBishop(int sourceRank, int sourceFile, int destRank, int destFile, char chessboard[8][8]) {
-    int rankChange = destRank - sourceRank;
-    int fileChange = destFile - sourceFile;
+bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
+    int rankChange = toRow - frRow;
+    int fileChange = toCol - frCol;
 
     int rankDirection = (rankChange > 0) ? 1 : -1;
     int fileDirection = (fileChange > 0) ? 1 : -1;
 
-    int rank = sourceRank + rankDirection;
-    int file = sourceFile + fileDirection;
+    int rank = frRow + rankDirection;
+    int file = frCol + fileDirection;
 
-    while (rank != destRank && file != destFile) {
+    while (rank != toRow && file != toCol) {
         if (chessboard[rank - 1][file - 1] != ' ') {
             return false; // Path is not clear
         }
@@ -22,22 +22,22 @@ bool isPathClearBishop(int sourceRank, int sourceFile, int destRank, int destFil
     return true; // Path is clear
 }
 
-bool isValidWhiteBishopMove(int sourceRank, int sourceFile, int destRank, int destFile, char chessboard[8][8]) {
+bool isValidWhiteBishopMove(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
     // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
-    if (sourceRank < 1 || sourceRank > 8 || destRank < 1 || destRank > 8 || sourceFile < 1 || sourceFile > 8 || destFile < 1 || destFile > 8) {
+    if (frRow < 1 || frRow > 8 || toRow < 1 || toRow > 8 || frCol < 1 || frCol > 8 || toCol < 1 || toCol > 8) {
         std::cout << "Invalid chessboard position." << std::endl;
         return false;
     }
 
     // Check if the move is along a diagonal
-    int rankDifference = (destRank > sourceRank) ? (destRank - sourceRank) : (sourceRank - destRank);
-    int fileDifference = (destFile > sourceFile) ? (destFile - sourceFile) : (sourceFile - destFile);
+    int rankDifference = (toRow > frRow) ? (toRow - frRow) : (frRow - toRow);
+    int fileDifference = (toCol > frCol) ? (toCol - frCol) : (frCol - toCol);
 
     if (rankDifference == fileDifference) {
         // Check if the path is clear
-        if (isPathClearBishop(sourceRank, sourceFile, destRank, destFile, chessboard)) {
+        if (checkDiagnolPath(frRow, frCol, toRow, toCol, chessboard)) {
             // Check if the destination square is empty or contains a black piece
-            if (chessboard[destRank - 1][destFile - 1] == ' ' || islower(chessboard[destRank - 1][destFile - 1])) {
+            if (chessboard[toRow - 1][toCol - 1] == ' ' || islower(chessboard[toRow - 1][toCol - 1])) {
                 return true;
             } else {
                 std::cout << "Invalid bishop move. Destination square is occupied by a white piece." << std::endl;
@@ -65,12 +65,12 @@ int main() {
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
     };
 
-    int sourceRank = 1;
-    int sourceFile = 1;
-    int destRank = 4;
-    int destFile = 4;
+    int frRow = 1;
+    int frCol = 1;
+    int toRow = 4;
+    int toCol = 4;
 
-    if (isValidWhiteBishopMove(sourceRank, sourceFile, destRank, destFile, chessboard)) {
+    if (isValidWhiteBishopMove(frRow, frCol, toRow, toCol, chessboard)) {
         std::cout << "Valid move for the white bishop." << std::endl;
     } else {
         std::cout << "Invalid move for the white bishop." << std::endl;
