@@ -19,6 +19,7 @@ void display_board(string,string);
 bool checkWhitePawn(int, int, int, int);
 bool checkBlackPawn(int, int, int, int);
 bool checkDiagnolPath(int,int,int,int);
+bool checkLinearPath(int,int,int,int);
 int main()
 {
 	home_menu();
@@ -405,4 +406,58 @@ bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol)
     } else
     {   return true; // Path is clear
     }
+}
+//Checking Linear Path
+bool checkLinearPath(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Check if there are any pieces in the path
+    if (frRow == toRow) 
+    {
+        // Move along the same row
+        if(frCol>toCol)
+        {
+            for (int col = frCol+1; col < toCol; ++col) 
+            {
+                if (chess_board[frRow][col] != ' ') 
+                {
+                return false; // Path is not clear
+                }
+            }
+        }
+        else
+        {
+            for (int col = frCol-1; col > toCol; --col) 
+            {
+                if (chess_board[frRow][col] != ' ') 
+                {
+                return false; // Path is not clear
+                }
+            }
+        }
+    } else if (frCol == toCol)  
+    {
+        // Move along the same column
+        if(frRow>toRow)
+        {
+            for (int row = frRow+1; row < toRow; ++row) 
+            {
+                if (chess_board[row][frCol] != ' ') 
+                {
+                return false; // Path is not clear
+                }
+            }
+        }
+        else
+        {
+            for (int row = frRow-1; row > toRow; --row) 
+            {
+                if (chess_board[row][frRow] != ' ') 
+                {
+                return false; // Path is not clear
+                }
+            }
+        }
+    }
+
+    return true; // Path is clear
 }
