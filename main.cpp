@@ -22,6 +22,8 @@ bool checkDiagnolPath(int,int,int,int);
 bool checkLinearPath(int,int,int,int);
 bool checkWhiteRook(int,int,int,int);
 bool checkBlackRook(int,int,int,int);
+bool checkWhiteBishop(int,int,int,int);
+bool checkBlackBishop(int,int,int,int);
 int main()
 {
 	home_menu();
@@ -516,3 +518,72 @@ bool checkBlackRook(int frRow, int frCol, int toRow, int toCol)
     return false;
 }
 //Checking White Bishop Move
+bool checkWhiteBishop(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is along a diagonal
+    int rowDifference = frRow-toRow;
+    int colDifference = frCol-toCol;
+
+    if (rowDifference == colDifference) {
+        // Check if the path is clear
+        if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
+        {
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid bishop move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the bishop's path." << endl;
+        }
+    } else 
+    {
+        cout << "Invalid bishop move." << endl;
+    }
+    return false;
+}
+//Checking Black Bishop Move
+bool checkBlackBishop(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is along a diagonal
+    int rowDifference = frRow-toRow;
+    int colDifference = frCol-toCol;
+
+    if (rowDifference == colDifference) {
+        // Check if the path is clear
+        if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
+        {
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z')) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid bishop move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the bishop's path." << endl;
+        }
+    } else 
+    {
+        cout << "Invalid bishop move." << endl;
+    }
+    return false;
+}
