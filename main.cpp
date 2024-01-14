@@ -5,7 +5,7 @@
 #include<string>
 #include<stdio.h>
 using namespace std;
-char chess_board[8][8] = {'.'};
+char chess_board[8][8] = {' '};
 void home_menu();
 void new_game();
 //moving a piece
@@ -16,8 +16,9 @@ void add_profile();
 void del_profile();
 void chck_stats();
 void display_board(string,string);
-bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol);
-bool checkBlackPawn(int frRow, int frCol, int toRow, int toCol);
+bool checkWhitePawn(int, int, int, int);
+bool checkBlackPawn(int, int, int, int);
+bool checkDiagnolPath(int,int,int,int);
 int main()
 {
 	home_menu();
@@ -343,5 +344,65 @@ bool checkBlackPawn(int frRow, int frCol, int toRow, int toCol)
     {
         cout << "Invalid move." << endl;
         return false;
+    }
+}
+//Function to check diagnol Path of the piece
+bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Check if there are any pieces in the path
+    if (frRow<toRow&&frCol<toCol) 
+    {
+        int row = frRow+1;
+        int col = frCol+1;
+        while (row<toRow&&col<toCol) 
+        {
+            if (chess_board[row][col] != ' ') 
+            {
+            return false; // Path is not clear
+            }
+            ++row;
+            ++col;
+        }
+    } else if (frRow<toRow&&frCol>toCol) 
+    {
+        int row = frRow+1;
+        int col = frCol-1;
+        while (row<toRow&&col<toCol) 
+        {
+            if (chess_board[row][col] != ' ') 
+            {
+            return false; // Path is not clear
+            }
+            ++row;
+            --col;
+        }
+    } else if (frRow>toRow&&frCol>toCol) 
+    {
+        int row = frRow-1;
+        int col = frCol-1;
+        while (row<toRow&&col<toCol) 
+        {
+            if (chess_board[row][col] != ' ') 
+            {
+            return false; // Path is not clear
+            }
+            --row;
+            --col;
+        }
+    } else if (frRow>toRow&&frCol<toCol) 
+    {
+        int row = frRow-1;
+        int col = frCol+1;
+        while (row<toRow&&col<toCol) 
+        {
+            if (chess_board[row][col] != ' ') 
+            {
+            return false; // Path is not clear
+            }
+            --row;
+            ++col;
+        }
+    } else
+    {   return true; // Path is clear
     }
 }
