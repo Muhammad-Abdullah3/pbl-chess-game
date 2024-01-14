@@ -290,17 +290,20 @@ bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     }
 
     // Check if the destination is one square forward
-    if (toRow == frRow + 1 && toCol == frCol) {
+    if ((toRow == frRow + 1 && toCol == frCol)&&(chess_board[toRow][toCol]==' ')) 
+	{
         return true;
     }
 
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
-    else if (frRow == 1 && toRow == frRow + 2 && toCol == frCol) {
+    else if ((frRow == 1 && (toRow == frRow + 2 && toCol == frCol)) &&(chess_board[toRow][toCol]==' ') ) 
+	{
         return true;
     }
 
     // Check if the destination is one square diagonally forward to capture an opponent's piece
-    else if (toRow == frRow + 1 && (toCol == frCol + 1 || toCol == frCol - 1)) {
+    else if ((toRow == frRow + 1 && (toCol == frCol + 1 || toCol == frCol - 1))&&(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')) 
+	{
         return true;
     }
     // If none of the above conditions are met, the move is invalid
@@ -310,7 +313,8 @@ bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol) {
         return false;
     }
 }
-bool checkBlackPawn(int frRow, int frCol, int toRow, int toCol) {
+bool checkBlackPawn(int frRow, int frCol, int toRow, int toCol) 
+{
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
     cout << "Invalid chessboard position." <<endl;
@@ -318,17 +322,20 @@ bool checkBlackPawn(int frRow, int frCol, int toRow, int toCol) {
     }
 
     // Check if the destination is one square forward
-    if (toRow == frRow - 1 && toCol == frCol) {
+    if ((toRow == frRow - 1 && toCol == frCol)&&(chess_board[toRow][toCol]=' ')) 
+	{
         return true;
     }
 
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
-    else if (frRow == 6 && toRow == frRow - 2 && toCol == frCol) {
+    else if ((frRow == 6 && toRow == frRow - 2 && toCol == frCol)&&(chess_board[toRow][toCol]=' ')) 
+	{
         return true;
     }
 
     // Check if the destination is one square diagonally forward to capture an opponent's piece
-    else if (toRow == frRow - 1 && (toCol == frCol + 1 || toCol == frCol - 1)) {
+    else if ((toRow == frRow - 1 && (toCol == frCol + 1 || toCol == frCol - 1))&&(chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z')) 
+	{
         return true;
     }
     // If none of the above conditions are met, the move is invalid
