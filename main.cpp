@@ -672,7 +672,7 @@ bool checkBlackQueen(int frRow, int frCol, int toRow, int toCol)
         if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
 		{
             // Check if the destination square is empty or contains a black piece
-            if (chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z') ) 
+            if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z') ) 
             {
                 return true;
             } else 
