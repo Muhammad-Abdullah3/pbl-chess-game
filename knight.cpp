@@ -7,40 +7,42 @@ bool checkWhiteKnight(int frRow, int frCol, int toRow, int toCol, char chessboar
         return false;
     }
 
-    // Check if the move is an L-shape (two squares in one direction and one square perpendicular)
+    // Check if the move is an L-shape (two squares in one dimension and one square in other dimension)
     int rowDifference = abs(toRow - frRow);
     int colDifference = abs(toCol - frCol);
 
     if ((rowDifference == 2 && colDifference == 1) || (rowDifference == 1 && colDifference == 2)) {
         // Check if the destination square is empty or contains a black piece
-        if (chessboard[toRow][toCol] == ' ' || islower(chessboard[toRow][toCol])) {
+        if (chessboard[toRow][toCol] == ' ' || (chessboard[toRow][toCol]>='a'&&chessboard[toRow][toCol]<='z') )
+        {
             return true;
-        } else {
+        } else 
+        {
             cout << "Invalid knight move. Destination square is occupied by a white piece." << endl;
         }
-    } else {
+    } else 
+    {
         cout << "Invalid knight move." << endl;
+        return false;
     }
-
-    return false;
 }
 
 int main() {
     // Example usage with an empty chessboard
     char chessboard[8][8] = {
+        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {' ', 'B', 'P', 'P', 'P', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+        {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
+        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 
-    int frRow = 1;
+    int frRow = 0;
     int frCol = 1;
-    int toRow = 3;
+    int toRow = 2;
     int toCol = 2;
 
     if (checkWhiteKnight(frRow, frCol, toRow, toCol,  chessboard)) {

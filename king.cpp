@@ -9,17 +9,21 @@ bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol, char chessboard[
     }
 
     // Check if the move is one square in any direction
-    int rankDifference = abs(toRow - frRow);
-    int fileDifference = abs(toCol - frCol);
+    int rowDifference = abs(toRow - frRow);
+    int colDifference = abs(toCol - frCol);
 
-    if ((rankDifference == 1 && fileDifference == 0) || (rankDifference == 0 && fileDifference == 1) || (rankDifference == 1 && fileDifference == 1)) {
+    if ((rowDifference == 1 && colDifference == 0) || (rowDifference == 0 && colDifference == 1) || (rowDifference == 1 && colDifference == 1)) 
+    {
         // Check if the destination square is empty or contains a black piece
-        if (chessboard[toRow][toCol] == ' ' || islower(chessboard[toRow][toCol])) {
+        if (chessboard[toRow][toCol] == ' ' || (chessboard[toRow][toCol]>='a'&&chessboard[toRow][toCol]<='z')) 
+        {
             return true;
-        } else {
+        } else 
+        {
             cout << "Invalid king move. Destination square is occupied by a white piece." << endl;
         }
-    } else {
+    } else 
+    {
         cout << "Invalid king move." << endl;
     }
 
@@ -29,20 +33,20 @@ bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol, char chessboard[
 int main() {
     // Example usage with an empty chessboard
     char chessboard[8][8] = {
+        {'R', 'N', 'B', ' ', 'K','q', 'N', 'R'},
+        {' ', 'B', 'P', ' ', 'p', 'n', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '}
+        {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
+        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 
-    int frRow = 1;
-    int frCol = 1;
-    int toRow = 2;
-    int toCol = 1;
+    int frRow = 0;
+    int frCol = 4;
+    int toRow = 1;
+    int toCol = 5;
 
     if (checkWhiteKing(frRow, frCol, toRow, toCol, chessboard)) {
         cout << "Valid move for the white king." << endl;

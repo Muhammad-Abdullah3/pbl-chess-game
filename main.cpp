@@ -26,11 +26,17 @@ bool checkWhiteBishop(int,int,int,int);
 bool checkBlackBishop(int,int,int,int);
 bool checkWhiteQueen(int,int,int,int);
 bool checkBlackQueen(int,int,int,int);
+bool checkWhiteKnight(int,int,int,int);
+bool checkBlackKnight(int,int,int,int);
+//Main Function Start
 int main()
 {
 	home_menu();
     return 0;
 }
+//Main Function Ends
+
+//New Game Function
 void new_game()
 {
 	system("CLS");
@@ -689,4 +695,58 @@ bool checkBlackQueen(int frRow, int frCol, int toRow, int toCol)
     }
 
     return false;
+}
+//White Knight Move Function
+bool checkWhiteKnight(int frRow, int frCol, int toRow, int toCol) {
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is an L-shape (two squares in one dimension and one square in other dimension)
+    int rowDifference = abs(toRow - frRow);
+    int colDifference = abs(toCol - frCol);
+
+    if ((rowDifference == 2 && colDifference == 1) || (rowDifference == 1 && colDifference == 2)) {
+        // Check if the destination square is empty or contains a black piece
+        if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z') )
+        {
+            return true;
+        } else 
+        {
+            cout << "Invalid knight move. Destination square is occupied by a white piece." << endl;
+        }
+    } else 
+    {
+        cout << "Invalid knight move." << endl;
+        return false;
+    }
+}
+//Black Knight Function
+bool checkBlackKnight(int frRow, int frCol, int toRow, int toCol) {
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is an L-shape (two squares in one dimension and one square in other dimension)
+    int rowDifference = abs(toRow - frRow);
+    int colDifference = abs(toCol - frCol);
+
+    if ((rowDifference == 2 && colDifference == 1) || (rowDifference == 1 && colDifference == 2)) {
+        // Check if the destination square is empty or contains a black piece
+        if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z') )
+        {
+            return true;
+        } else 
+        {
+            cout << "Invalid knight move. Destination square is occupied by a white piece." << endl;
+        }
+    } else 
+    {
+        cout << "Invalid knight move." << endl;
+        return false;
+    }
 }
