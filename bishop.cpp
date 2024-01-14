@@ -60,7 +60,7 @@ bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol, char chessboar
     }
 }
 bool isValidWhiteBishopMove(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;

@@ -470,7 +470,7 @@ bool checkLinearPath(int frRow, int frCol, int toRow, int toCol)
 //Checking White Rook move
 bool checkWhiteRook(int frRow, int frCol, int toRow, int toCol) 
 {
-    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rowss, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
@@ -496,7 +496,7 @@ bool checkWhiteRook(int frRow, int frCol, int toRow, int toCol)
 //Checking Black Rook Move
 bool checkBlackRook(int frRow, int frCol, int toRow, int toCol) 
 {
-    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
@@ -522,7 +522,7 @@ bool checkBlackRook(int frRow, int frCol, int toRow, int toCol)
 //Checking White Bishop Move
 bool checkWhiteBishop(int frRow, int frCol, int toRow, int toCol) 
 {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
@@ -557,7 +557,7 @@ bool checkWhiteBishop(int frRow, int frCol, int toRow, int toCol)
 //Checking Black Bishop Move
 bool checkBlackBishop(int frRow, int frCol, int toRow, int toCol) 
 {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
@@ -591,7 +591,7 @@ bool checkBlackBishop(int frRow, int frCol, int toRow, int toCol)
 }
 //Checking white queen
 bool checkWhiteQueen(int frRow, int frCol, int toRow, int toCol) {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
@@ -641,7 +641,7 @@ bool checkWhiteQueen(int frRow, int frCol, int toRow, int toCol) {
 //Check Black Queen
 bool checkBlackQueen(int frRow, int frCol, int toRow, int toCol) 
 {
-    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for coloumns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
         return false;
