@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
-bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
+bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) 
+{
     // Check if there are any pieces in the path
     if (frRow<toRow&&frCol<toCol) 
     {
@@ -58,7 +59,6 @@ bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol, char chessboar
     {   return true; // Path is clear
     }
 }
-
 bool isValidWhiteBishopMove(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
     // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {

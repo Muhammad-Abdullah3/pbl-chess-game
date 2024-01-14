@@ -24,6 +24,8 @@ bool checkWhiteRook(int,int,int,int);
 bool checkBlackRook(int,int,int,int);
 bool checkWhiteBishop(int,int,int,int);
 bool checkBlackBishop(int,int,int,int);
+bool checkWhiteQueen(int,int,int,int);
+bool checkBlackQueen(int,int,int,int);
 int main()
 {
 	home_menu();
@@ -585,5 +587,106 @@ bool checkBlackBishop(int frRow, int frCol, int toRow, int toCol)
     {
         cout << "Invalid bishop move." << endl;
     }
+    return false;
+}
+//Checking white queen
+bool checkWhiteQueen(int frRow, int frCol, int toRow, int toCol) {
+    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+    // row and coloumn difference for diagnol checking
+    int rowDifference = frRow - toRow;
+    int colDifference = frCol - toCol;
+    // Check if the move is along a row or a coloumn
+    if (frRow == toRow || frCol == toCol) {
+        // Check if the path is clear
+        if (checkLinearPath(frRow, frCol, toRow, toCol)) {
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z') ) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid queen move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the queen's path." << endl;
+        }
+    }else if(rowDifference==colDifference)//Checking if the move is along the diagnol
+    {
+        // Check if the path is clear
+        if (checkDiagnolPath(frRow, frCol, toRow, toCol)) {
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z') ) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid queen move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the queen's path." << endl;
+        }        
+    } else 
+    {
+        cout << "Invalid queen move." << endl;
+    }
+
+    return false;
+}
+//Check Black Queen
+bool checkBlackQueen(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (1 to 8 for ranks, 'A' to 'H' for files)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+    // row and coloumn difference for diagnol checking
+    int rowDifference = frRow - toRow;
+    int colDifference = frCol - toCol;
+    // Check if the move is along a row or a coloumn
+    if (frRow == toRow || frCol == toCol) {
+        // Check if the path is clear
+        if (checkLinearPath(frRow, frCol, toRow, toCol)) 
+		{
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z') ) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid queen move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the queen's path." << endl;
+        }
+    }else if(rowDifference==colDifference)//Checking if the move is along the diagnol
+    {
+        // Check if the path is clear
+        if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
+		{
+            // Check if the destination square is empty or contains a black piece
+            if (chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z') ) 
+            {
+                return true;
+            } else 
+            {
+                cout << "Invalid queen move. Destination square is occupied by a white piece." << endl;
+            }
+        } else 
+        {
+            cout << "There is a piece in the queen's path." << endl;
+        }        
+    } else 
+    {
+        cout << "Invalid queen move." << endl;
+    }
+
     return false;
 }
