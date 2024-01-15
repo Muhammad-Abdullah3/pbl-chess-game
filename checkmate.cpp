@@ -28,14 +28,26 @@ bool whiteKingCheck(int &,int &,int &);
 bool checkUnderAttackWhite(int &,int &,int &);
 bool blackKingCheck(int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &);
+bool checkmate(int &, int &, int &, int &, int &);
 int main() 
-{  
+{
+    int moveNo=2;
+    int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
     return 0;
 }
 //checkmate for white king
-bool isWhiteKingInCheckmate(char chessboard[8][8]) 
+bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
 {
-
+    if(moveNo%2==0)
+    {
+        whiteKingCheck(whiteKingRow,whiteKingCol,moveNo);
+        //Check for every legal move of king to avoid check
+    }
+    else
+    {
+        blackKingCheck(blackKingRow,blackKingCol,moveNo);
+        //Check for every legal move of king to avoid check
+    }
 }
 bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
