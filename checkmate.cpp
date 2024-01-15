@@ -35,7 +35,7 @@ int main()
 //checkmate for white king
 bool isWhiteKingInCheckmate(char chessboard[8][8]) 
 {
-    
+
 }
 bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
