@@ -42,7 +42,7 @@ void addProfile() {
 void createStatFile(string &a)
 {
     ofstream statFile(a);
-    statFile<<setw(30)<<right<<"Total Games"<<setw(15)<<right<<"Won"<<setw(15)<<right<<"Lost"<<setw(15)<<right<<"Draws";
+    statFile<<setw(25)<<left<<"Total Games"<<setw(15)<<left<<"Won"<<setw(15)<<left<<"Lost"<<setw(15)<<left<<"Draws";
     // Check if the file is successfully created
     if (statFile.is_open()) {
         cout << "Stat file \"" << a << "\" created successfully." << endl;
