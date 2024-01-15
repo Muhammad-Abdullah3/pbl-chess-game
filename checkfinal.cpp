@@ -7,11 +7,12 @@ char chess_board[8][8] = {
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
+        {'R', ' ', 'p', 'p', ' ' , 'p' , 'p' , 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 bool whiteKingCheck(int &,int &,int &);
-bool checkUnderAttack(int &,int &,int&);
+bool blackKingCheck(int &,int &,int &);
+bool checkUnderAttackBlack(int &,int &,int&);
 bool checkWhitePawn(int, int, int, int);
 bool checkBlackPawn(int, int, int, int);
 bool checkDiagnolPath(int,int,int,int);
@@ -26,10 +27,11 @@ bool checkWhiteKnight(int,int,int,int);
 bool checkBlackKnight(int,int,int,int);
 bool checkBlackKing(int,int,int,int);
 bool checkWhiteKing(int,int,int,int);
+
 int main()
 {
     int moveNo=2;
-    int blackKingRow,blackKingCol,blackKingRow,blackKingCol;
+    int whiteKingRow,whiteKingCol,blackKingRow,blackKingCol;
     if(blackKingCheck(blackKingRow,blackKingCol,moveNo))
         cout<<"King is in Check.";
     else
@@ -50,30 +52,30 @@ bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int &moveNo)
             }
         }
     }
-    checkUnderAttack(blackKingRow,blackKingCol,moveNo);
+    checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo);
 }
-bool checkUnderAttack(int & blackKingRow,int & blackKingCol,int &moveNo) 
+bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int &moveNo) 
 {
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) 
     {
-        for (int j = 0; j < 7; j++) 
+        for (int j = 0; j < 8; j++) 
         {
             if (chess_board[i][j] == 'P') 
             {
-                if (checkBlackPawn(i, j,blackKingRow,blackKingCol)) 
+                if (checkWhitePawn(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
             } else if (chess_board[i][j] == 'N') 
             {
-                if (checkBlackKnight(i, j,blackKingRow,blackKingRow)) 
+                if (checkWhiteKnight(i, j,blackKingRow,blackKingRow)) 
                 {
                     return true;
                 }
             } else if (chess_board[i][j] == 'R') 
             {
-                if (checkBlackRook(i, j,blackKingRow,blackKingCol)) 
+                if (checkWhiteRook(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
@@ -84,7 +86,7 @@ bool checkUnderAttack(int & blackKingRow,int & blackKingCol,int &moveNo)
                 }
             } else if (chess_board[i][j] == 'Q') 
             {
-                if (checkBlackQueen(i, j,blackKingRow,blackKingCol)) 
+                if (checkWhiteQueen(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
@@ -92,7 +94,7 @@ bool checkUnderAttack(int & blackKingRow,int & blackKingCol,int &moveNo)
             {
                 if(moveNo%2==0)
                 {    
-                    if (checkBlackKing(i, j,blackKingRow,blackKingCol)) 
+                    if (checkWhiteKing(i, j,blackKingRow,blackKingCol)) 
                     {
                         return true;
                     }
