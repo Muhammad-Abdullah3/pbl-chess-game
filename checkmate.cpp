@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 char chess_board[8][8] = {
         {'R', 'N', 'B', 'Q', 'R','B', 'N', 'R'},
@@ -23,6 +24,9 @@ bool legalBlackQueen(int,int,int,int);
 bool legalWhiteKnight(int,int,int,int);
 bool legalBlackKnight(int,int,int,int);
 bool legalWhiteKing(int,int,int,int,int &, int &,int &);
+void convertString(int &,int &,int &,int &,string);
+void inMove(string &, int &);
+void movePiece(string &,int &,int &,int &,int &, int &, int &);
 //bool legalBlackKing(int,int,int,int,int &,int &, int &);
 bool whiteKingCheck(int &,int &,int &);
 //bool checkUnderAttackWhite(int &,int &,int &, int &,int &);
@@ -800,4 +804,347 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKing
         }
     }
 }
+}
+//Taking input from The User
+void inMove(string & move,int & moveNo)
+{
+    if(moveNo%2==1)
+    {
+        cout<<"White please enter your Move: ";
+        cin>>move;
+        if(move.length()!=5);//including the null character
+        {//calling the function again
+            inMove(move,moveNo);
+        }
+        for(int i=0;i<4;i+2)
+        {
+            if(move.at(i)<'A'||move.at(i)>'H'||move.at(i)<'a'||move.at(i)>'h')
+                inMove(move,moveNo);
+        }
+        for(int i=1;i<4;i+2)
+        {
+            if(move.at(i)<'1'||move.at(i)>'8')
+                inMove(move,moveNo);
+        }
+    }
+    else
+    {
+        cout<<"Black please enter your Move: ";
+        cin>>move;
+        if(move.length()!=5);//including the null character
+        {//calling the function again
+            inMove(move,moveNo);
+        }
+        for(int i=0;i<4;i+2)
+        {
+            if(move.at(i)<'A'||move.at(i)>'H'||move.at(i)<'a'||move.at(i)>'h')
+                inMove(move,moveNo);
+        }
+        for(int i=1;i<4;i+2)
+        {
+            if(move.at(i)<'1'||move.at(i)>'8')
+                inMove(move,moveNo);
+        }
+    }
+}
+//Moving Piece
+void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCol,int & blackKingRow, int & blackKingCol)
+{
+    int frRow,frCol,toRow,toCol;
+    char destinationValue;
+    convertString(frRow,frCol,toRow,toCol,move);
+    if(moveNo%2==1)
+    {
+        if(chess_board[frRow][frCol]<'A'||chess_board[frRow][frCol]>'Z')
+        {
+            inMove(move,moveNo);
+            movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        }
+        else if (chess_board[frRow][frCol]=='P')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhitePawn(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='R')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteRook(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='Q')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteQueen(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='B')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteBishop(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='N')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteKnight(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='K')
+        {
+            if(legalWhiteKing(frRow,frCol,toRow,toCol,whiteKingRow,whiteKingCol,moveNo))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else
+        {
+            cout<<"Illegal Move.";
+            inMove(move,moveNo);
+            movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        }
+    }
+    else
+    {
+        if(chess_board[frRow][frCol]<'A'||chess_board[frRow][frCol]>'Z')
+        {
+            inMove(move,moveNo);
+            movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        }
+        else if (chess_board[frRow][frCol]=='P')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhitePawn(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='R')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteRook(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='Q')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteQueen(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='B')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteBishop(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        else if (chess_board[frRow][frCol]=='N')
+        {
+            destinationValue = chess_board[toRow][toCol];
+            if(legalWhiteKnight(frRow,frCol,toRow,toCol))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+                if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+                {
+                    cout<<"Illegal Move.";
+                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                    chess_board[frRow][frCol] =  destinationValue;
+                    inMove(move,moveNo);
+                    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+                }
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }
+        /*else if (chess_board[frRow][frCol]=='k')
+        {
+            if(legalBlackKing(frRow,frCol,toRow,toCol,whiteKingRow,whiteKingCol,moveNo))
+            {
+                chess_board[toRow][toCol] = chess_board[frRow][frCol];
+                chess_board[frRow][frCol] =  ' ';
+            }
+            else
+            {
+                cout<<"Illegal move.";
+                inMove(move,moveNo);
+                movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+            }
+        }*/
+        else
+        {
+            cout<<"Illegal Move.";
+            inMove(move,moveNo);
+            movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        }
+    }
+    moveNo++;
+}
+//Converting String into int variables
+void convertString(int & frRow,int & frCol,int & toRow,int & toCol,string input)
+{//converting all characters in upper case
+input.at(0)=toupper(input.at(0));
+input.at(2)=toupper(input.at(2));
+//converting notation from string to integer array indices
+frRow = input.at(0)-'A';
+frCol = input.at(1)-'1';
+toRow = input.at(2)-'A';
+toCol = input.at(3)-'1';
 }
