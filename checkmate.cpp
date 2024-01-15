@@ -22,13 +22,14 @@ bool legalWhiteQueen(int,int,int,int);
 bool legalBlackQueen(int,int,int,int);
 bool legalWhiteKnight(int,int,int,int);
 bool legalBlackKnight(int,int,int,int);
-bool legalWhiteKing(int,int,int,int);
-bool legalBlackKing(int,int,int,int);
+bool legalWhiteKing(int,int,int,int,int &, int &,int &);
+bool legalBlackKing(int,int,int,int,int &,int &, int &);
 bool whiteKingCheck(int &,int &,int &);
 bool checkUnderAttackWhite(int &,int &,int &);
 bool blackKingCheck(int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &);
 bool checkmate(int &, int &, int &, int &, int &);
+
 int main() 
 {
     int moveNo=2;
@@ -40,8 +41,115 @@ bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & bla
 {
     if(moveNo%2==0)
     {
-        whiteKingCheck(whiteKingRow,whiteKingCol,moveNo);
-        //Check for every legal move of king to avoid check
+        if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+        {//Check for every legal move of king to avoid check
+            int tempCase = 1;
+            switch (tempCase)
+            {
+            int temKingRow,int temKingCol;
+            case 1:
+            {
+                temKingRow=whiteKingRow,temKingCol = whiteKingCol+1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 2:
+            {
+                temKingRow=whiteKingRow,temKingCol = whiteKingCol-1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 3:
+            {
+                temKingRow=whiteKingRow+1,temKingCol = whiteKingCol;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 4:
+            {
+                temKingRow=whiteKingRow-1,temKingCol = whiteKingCol;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 5:
+            {
+                temKingRow=whiteKingRow+1,temKingCol = whiteKingCol+1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 6:
+            {
+                temKingRow=whiteKingRow+1,temKingCol = whiteKingCol-1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 7:
+            {
+                temKingRow=whiteKingRow-1,temKingCol = whiteKingCol+1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 8:
+            {
+                temKingRow=whiteKingRow-1,temKingCol = whiteKingCol-1;
+                if(legalWhiteKing(whiteKingRow,whiteKingCol,temKingRow,temKingCol,temKingRow,temKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+            }    
+            }
+        }
+        
     }
     else
     {
@@ -504,7 +612,7 @@ bool legalBlackKnight(int frRow, int frCol, int toRow, int toCol) {
     }
 }
 //White King
-bool legalWhiteKing(int frRow, int frCol, int toRow, int toCol) 
+bool legalWhiteKing(int frRow, int frCol, int toRow, int toCol,int & whiteKingRow,int & whiteKingCol, int & moveNo) 
 {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
@@ -521,7 +629,8 @@ bool legalWhiteKing(int frRow, int frCol, int toRow, int toCol)
         // Check if the destination square is empty or contains a black piece
         if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')) 
         {
-            return true;
+            if(!(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo)))
+                return true;
         } else 
         {
             cout << "Invalid king move. Destination square is occupied by a white piece." << endl;
@@ -684,7 +793,7 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int &moveNo)
             {
                 if(moveNo%2==0)
                 {    
-                    if (legalWhiteKing(i, j,blackKingRow,blackKingCol)) 
+                    if (legalWhiteKing(i, j,blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo)) 
                     {
                         return true;
                     }
