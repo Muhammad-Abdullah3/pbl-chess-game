@@ -12,9 +12,9 @@ void new_game();
 void move_piece(string);
 void board_set();
 void instr();
-void add_profile();
-void del_profile();
-void chck_stats();
+void addProfile();
+void delProfile();
+void checkStats();
 void display_board(string,string);
 bool checkWhitePawn(int, int, int, int);
 bool checkBlackPawn(int, int, int, int);
@@ -209,17 +209,17 @@ void instr()
 	cout<<"\n13- At checkmate, the game will come to an end. \n 13- The stats are stored in a text file of both players in their profile.";
 }
 // Function to add a new player profile
-void add_profile()
+void addProfile()
 {
 
 }
 // Function to delete a players profile
-void del_profile()
+void delProfile()
 {
 
 }
 // Function to check players stats
-void chck_stats()
+void checkStats()
 {
 
 }
@@ -244,16 +244,16 @@ else if(entr_num==2)
 }
 else if (entr_num==3)
 {
-	add_profile();
+	addProfile();
 }
 else if (entr_num==4)
 {
-	del_profile();
+	delProfile();
 }
 
 else if (entr_num==5)
 {
-	chck_stats();
+	checkStats();
 }
 else if (entr_num==6)
 {
