@@ -753,7 +753,8 @@ bool checkBlackKnight(int frRow, int frCol, int toRow, int toCol) {
     }
 }
 //White King
-bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
+bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol) 
+{
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
@@ -767,7 +768,7 @@ bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol, char chessboard[
     if ((rowDifference == 1 && colDifference == 0) || (rowDifference == 0 && colDifference == 1) || (rowDifference == 1 && colDifference == 1)) 
     {
         // Check if the destination square is empty or contains a black piece
-        if (chessboard[toRow][toCol] == ' ' || (chessboard[toRow][toCol]>='a'&&chessboard[toRow][toCol]<='z')) 
+        if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')) 
         {
             return true;
         } else 
@@ -782,7 +783,7 @@ bool checkWhiteKing(int frRow, int frCol, int toRow, int toCol, char chessboard[
     return false;
 }
 //Black King
-bool checkBlackKing(int frRow, int frCol, int toRow, int toCol, char chessboard[8][8]) {
+bool checkBlackKing(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
@@ -796,7 +797,7 @@ bool checkBlackKing(int frRow, int frCol, int toRow, int toCol, char chessboard[
     if ((rowDifference == 1 && colDifference == 0) || (rowDifference == 0 && colDifference == 1) || (rowDifference == 1 && colDifference == 1)) 
     {
         // Check if the destination square is empty or contains a black piece
-        if (chessboard[toRow][toCol] == ' ' || (chessboard[toRow][toCol]>='A'&&chessboard[toRow][toCol]<='Z')) 
+        if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z')) 
         {
             return true;
         } else 
