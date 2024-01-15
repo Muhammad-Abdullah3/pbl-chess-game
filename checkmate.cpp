@@ -27,12 +27,12 @@ bool legalWhiteKing(int,int,int,int,int &, int &,int &);
 void convertString(int &,int &,int &,int &,string);
 void inMove(string &, int &);
 void movePiece(string &,int &,int &,int &,int &, int &, int &);
-//bool legalBlackKing(int,int,int,int,int &,int &, int &);
+bool legalBlackKing(int,int,int,int,int &,int &, int &);
 bool whiteKingCheck(int &,int &,int &);
-//bool checkUnderAttackWhite(int &,int &,int &, int &,int &);
-bool blackKingCheck(int &,int &,int &);
-bool checkUnderAttackBlack(int &,int &,int &,int &, int &);
-bool checkmate(int &, int &, int &, int &, int &);
+bool checkUnderAttackWhite(int &,int &,int &);
+bool blackKingCheck(int &,int &,int &,int &,int &);
+bool checkUnderAttackBlack(int &,int &,int &),
+bool checkmate(int &,int &, int &, int &, int &, int &);
 
 int main() 
 {
@@ -646,7 +646,7 @@ bool legalWhiteKing(int frRow, int frCol, int toRow, int toCol,int & whiteKingRo
     return false;
 }
 //Black King
-bool legalBlackKing(int frRow, int frCol, int toRow, int toCol) {
+bool legalBlackKing(int frRow, int frCol, int toRow, int toCol,int & blackKingRow,int & blackKingCol,int & moveNo) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
         cout << "Invalid chessboard position." << endl;
@@ -662,6 +662,7 @@ bool legalBlackKing(int frRow, int frCol, int toRow, int toCol) {
         // Check if the destination square is empty or contains a black piece
         if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z')) 
         {
+            if(!blackKingCheck(blackKingRow,blackKingCol,moveNo))
             return true;
         } else 
         {
@@ -691,7 +692,7 @@ bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &moveNo)
     }
     checkUnderAttackWhite(whiteKingRow,whiteKingCol,moveNo);
 }
-bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int &moveNo) 
+bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKingRow,int &blackKingCol,int &moveNo) 
 {
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) {
@@ -729,7 +730,7 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int &moveNo)
             {
                 if(moveNo%2==1)
                 {    
-                    if (legalBlackKing(i, j,whiteKingRow,whiteKingCol)) 
+                    if (legalBlackKing(i, j,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo)) 
                     {
                         return true;
                     }
@@ -756,7 +757,7 @@ bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,in
     checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo,whiteKingRow,whiteKingCol);
 }
 //Under Attack Square Validation
-bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKingRow, int & whiteKingCol,int & moveNo) 
+bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int &,int &,int & whiteKingRow, int & whiteKingCol,int & moveNo) 
 {
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) 
@@ -1114,7 +1115,7 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
-        /*else if (chess_board[frRow][frCol]=='k')
+        else if (chess_board[frRow][frCol]=='k')
         {
             if(legalBlackKing(frRow,frCol,toRow,toCol,whiteKingRow,whiteKingCol,moveNo))
             {
@@ -1127,7 +1128,7 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 inMove(move,moveNo);
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
-        }*/
+        }
         else
         {
             cout<<"Illegal Move.";
@@ -1147,4 +1148,71 @@ frRow = input.at(0)-'A';
 frCol = input.at(1)-'1';
 toRow = input.at(2)-'A';
 toCol = input.at(3)-'1';
+}
+//
+bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int &moveNo)
+{
+    for(int i=0;i<8;i++)
+    {
+        for(int j=0;j<8;j++)
+        {
+            if(chess_board[i][j]=='k')
+            {
+                blackKingRow = i;
+                blackKingCol = j;
+                break;
+            }
+        }
+    }
+    checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo);
+}
+//Under Attack Square Validation
+bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int &whiteKingRow,int &whiteKingCol,int &moveNo) 
+{
+    // legal move generation for each piece
+    for (int i = 0; i < 8; i++) 
+    {
+        for (int j = 0; j < 8; j++) 
+        {
+            if (chess_board[i][j] == 'P') 
+            {
+                if (legalWhitePawn(i, j,blackKingRow,blackKingCol)) 
+                {
+                    return true;
+                }
+            } else if (chess_board[i][j] == 'N') 
+            {
+                if (legalWhiteKnight(i, j,blackKingRow,blackKingRow)) 
+                {
+                    return true;
+                }
+            } else if (chess_board[i][j] == 'R') 
+            {
+                if (legalWhiteRook(i, j,blackKingRow,blackKingCol)) 
+                {
+                    return true;
+                }
+            } else if (chess_board[i][j] == 'B')
+            {
+                if (legalWhiteBishop(i, j,blackKingCol,blackKingRow)) {
+                    return true;
+                }
+            } else if (chess_board[i][j] == 'Q') 
+            {
+                if (legalWhiteQueen(i, j,blackKingRow,blackKingCol)) 
+                {
+                    return true;
+                }
+            } else if (chess_board[i][j] == 'K') 
+            {
+                if(moveNo%2==0)
+                {    
+                    if (legalWhiteKing(i, j,blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo)) 
+                    {
+                        return true;
+                    }
+                }
+        }
+    }
+}
 }
