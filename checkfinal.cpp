@@ -2,16 +2,16 @@
 using namespace std;
 char chess_board[8][8] = {
         {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {' ', 'B', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {' ', 'B', 'P', 'P', ' ', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
-        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
+        {'r', 'n', 'b', 'q', 'r', 'b', 'n', 'r'}
     };
-bool whiteKingCheck(int &,int &);
-bool checkUnderAttack(int,int);
+bool whiteKingCheck(int &,int &,int &);
+bool checkUnderAttack(int &,int &,int&);
 bool checkWhitePawn(int, int, int, int);
 bool checkBlackPawn(int, int, int, int);
 bool checkDiagnolPath(int,int,int,int);
@@ -24,12 +24,19 @@ bool checkWhiteQueen(int,int,int,int);
 bool checkBlackQueen(int,int,int,int);
 bool checkWhiteKnight(int,int,int,int);
 bool checkBlackKnight(int,int,int,int);
+bool checkBlackKing(int,int,int,int);
+
 int main()
 {
+    int moveNo=1;
     int whiteKingRow,whiteKingCol;
- return 0;
+    if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+        cout<<"King is in Check.";
+    else
+        cout<<"King is safe";
+    return 0;
 }
-bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol)
+bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &moveNo)
 {
     for(int i=0;i<8;i++)
     {
@@ -43,34 +50,55 @@ bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol)
             }
         }
     }
+    checkUnderAttack(whiteKingRow,whiteKingCol,moveNo);
 }
-bool checkUnderAttack(int row, int col) {
-    // Pseudo legal move generation for each piece
+bool checkUnderAttack(int & whiteKingRow,int & whiteKingCol,int &moveNo) 
+{
+    // legal move generation for each piece
     for (int i = 0; i < 8; i++) {
         for (int j = 0; j < 7; j++) {
-            if (chess_board[i][j] == 'k') {
-                if (isUnderAttack(i, j)) {
+            if (chess_board[i][j] == 'p') 
+            {
+                if (checkBlackPawn(i, j,whiteKingRow,whiteKingCol)) 
+                {
                     return true;
                 }
-            } else if (chess_board[i][j] == QUEEN) {
-                if (isUnderAttack(i, j)) {
+            } else if (chess_board[i][j] == 'n') 
+            {
+                if (checkBlackKnight(i, j,whiteKingRow,whiteKingRow)) 
+                {
                     return true;
                 }
-            } else if (chess_board[i][j] == ROOK) {
-                if (isUnderAttack(i, j)) {
+            } else if (chess_board[i][j] == 'r') 
+            {
+                if (checkBlackRook(i, j,whiteKingRow,whiteKingCol)) 
+                {
                     return true;
                 }
-            } else if (chess_board[i][j] == BISHOP) {
-                if (isUnderAttack(i, j)) {
+            } else if (chess_board[i][j] == 'b')
+            {
+                if (checkBlackBishop(i, j,whiteKingCol,whiteKingRow)) {
                     return true;
                 }
-            } else if (chess_board[i][j] == KNIGHT) {
-                if (isUnderAttack(i, j)) {
+            } else if (chess_board[i][j] == 'q') 
+            {
+                if (checkBlackQueen(i, j,whiteKingRow,whiteKingCol)) 
+                {
                     return true;
                 }
-            }
+            } else if (chess_board[i][j] == 'q') 
+            {
+                if(moveNo%2==1)
+                {    
+                    if (checkBlackKing(i, j,whiteKingRow,whiteKingCol)) 
+                    {
+                        return true;
+                    }
+                }
         }
     }
+}
+}
     bool checkWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
@@ -524,4 +552,34 @@ bool checkBlackKnight(int frRow, int frCol, int toRow, int toCol) {
         cout << "Invalid knight move." << endl;
         return false;
     }
+}
+//black King
+bool checkBlackKing(int frRow, int frCol, int toRow, int toCol) 
+{
+    // Ensure the source and destination are within the chessboard boundaries (0 to 7 for rows, 'A' to 'H' for columns)
+    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+        cout << "Invalid chessboard position." << endl;
+        return false;
+    }
+
+    // Check if the move is one square in any direction
+    int rowDifference = abs(toRow - frRow);
+    int colDifference = abs(toCol - frCol);
+
+    if ((rowDifference == 1 && colDifference == 0) || (rowDifference == 0 && colDifference == 1) || (rowDifference == 1 && colDifference == 1)) 
+    {
+        // Check if the destination square is empty or contains a black piece
+        if (chess_board[toRow][toCol] == ' ' || (chess_board[toRow][toCol]>='A'&&chess_board[toRow][toCol]<='Z')) 
+        {
+            return true;
+        } else 
+        {
+            cout << "Invalid king move. Destination square is occupied by a white piece." << endl;
+        }
+    } else 
+    {
+        cout << "Invalid king move." << endl;
+    }
+
+    return false;
 }
