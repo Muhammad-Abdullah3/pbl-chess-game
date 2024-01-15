@@ -23,11 +23,11 @@ bool legalBlackQueen(int,int,int,int);
 bool legalWhiteKnight(int,int,int,int);
 bool legalBlackKnight(int,int,int,int);
 bool legalWhiteKing(int,int,int,int,int &, int &,int &);
-bool legalBlackKing(int,int,int,int,int &,int &, int &);
+//bool legalBlackKing(int,int,int,int,int &,int &, int &);
 bool whiteKingCheck(int &,int &,int &);
-bool checkUnderAttackWhite(int &,int &,int &);
+//bool checkUnderAttackWhite(int &,int &,int &, int &,int &);
 bool blackKingCheck(int &,int &,int &);
-bool checkUnderAttackBlack(int &,int &,int &);
+bool checkUnderAttackBlack(int &,int &,int &,int &, int &);
 bool checkmate(int &, int &, int &, int &, int &);
 
 int main() 
@@ -149,13 +149,12 @@ bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & bla
             }    
             }
         }
-        
     }
-    else
+    /*else
     {
         blackKingCheck(blackKingRow,blackKingCol,moveNo);
         //Check for every legal move of king to avoid check
-    }
+    }*/
 }
 bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
@@ -736,7 +735,7 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int &moveNo)
 }
 }
 //Black King Under Check
-bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int &moveNo)
+bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,int & whiteKingCol,int & moveNo)
 {
     for(int i=0;i<8;i++)
     {
@@ -750,10 +749,10 @@ bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int &moveNo)
             }
         }
     }
-    checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo);
+    checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo,whiteKingRow,whiteKingCol);
 }
 //Under Attack Square Validation
-bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int &moveNo) 
+bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKingRow, int & whiteKingCol,int & moveNo) 
 {
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) 
