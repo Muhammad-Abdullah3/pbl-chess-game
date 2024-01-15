@@ -1,14 +1,14 @@
 #include<iostream>
 using namespace std;
 char chess_board[8][8] = {
-        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {'R', 'N', 'B', 'Q', 'R','B', 'N', 'R'},
         {' ', 'B', 'P', 'P', ' ', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {'R',' ','p','p', 'p' , 'p' , 'p' , 'p'},
-        {'r', 'n', 'b', 'q', 'r', 'b', 'n', 'r'}
+        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 bool whiteKingCheck(int &,int &,int &);
 bool checkUnderAttack(int &,int &,int&);
@@ -28,71 +28,71 @@ bool checkBlackKing(int,int,int,int);
 bool checkWhiteKing(int,int,int,int);
 int main()
 {
-    int moveNo=1;
-    int whiteKingRow,whiteKingCol;
-    if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+    int moveNo=2;
+    int blackKingRow,blackKingCol,blackKingRow,blackKingCol;
+    if(blackKingCheck(blackKingRow,blackKingCol,moveNo))
         cout<<"King is in Check.";
     else
         cout<<"King is safe";
     return 0;
 }
-bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &moveNo)
+bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int &moveNo)
 {
     for(int i=0;i<8;i++)
     {
         for(int j=0;j<8;j++)
         {
-            if(chess_board[i][j]=='K')
+            if(chess_board[i][j]=='k')
             {
-                whiteKingRow = i;
-                whiteKingCol = j;
+                blackKingRow = i;
+                blackKingCol = j;
                 break;
             }
         }
     }
-    checkUnderAttack(whiteKingRow,whiteKingCol,moveNo);
+    checkUnderAttack(blackKingRow,blackKingCol,moveNo);
 }
-bool checkUnderAttack(int & whiteKingRow,int & whiteKingCol,int &moveNo) 
+bool checkUnderAttack(int & blackKingRow,int & blackKingCol,int &moveNo) 
 {
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) 
     {
         for (int j = 0; j < 7; j++) 
         {
-            if (chess_board[i][j] == 'p') 
+            if (chess_board[i][j] == 'P') 
             {
-                if (checkBlackPawn(i, j,whiteKingRow,whiteKingCol)) 
+                if (checkBlackPawn(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'n') 
+            } else if (chess_board[i][j] == 'N') 
             {
-                if (checkBlackKnight(i, j,whiteKingRow,whiteKingRow)) 
+                if (checkBlackKnight(i, j,blackKingRow,blackKingRow)) 
                 {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'r') 
+            } else if (chess_board[i][j] == 'R') 
             {
-                if (checkBlackRook(i, j,whiteKingRow,whiteKingCol)) 
+                if (checkBlackRook(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'b')
+            } else if (chess_board[i][j] == 'B')
             {
-                if (checkBlackBishop(i, j,whiteKingCol,whiteKingRow)) {
+                if (checkWhiteBishop(i, j,blackKingCol,blackKingRow)) {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'q') 
+            } else if (chess_board[i][j] == 'Q') 
             {
-                if (checkBlackQueen(i, j,whiteKingRow,whiteKingCol)) 
+                if (checkBlackQueen(i, j,blackKingRow,blackKingCol)) 
                 {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'k') 
+            } else if (chess_board[i][j] == 'K') 
             {
-                if(moveNo%2==1)
+                if(moveNo%2==0)
                 {    
-                    if (checkBlackKing(i, j,whiteKingRow,whiteKingCol)) 
+                    if (checkBlackKing(i, j,blackKingRow,blackKingCol)) 
                     {
                         return true;
                     }
