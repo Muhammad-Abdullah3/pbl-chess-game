@@ -995,7 +995,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
-        }
     }
     else
     {
