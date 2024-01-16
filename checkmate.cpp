@@ -33,7 +33,7 @@ bool whiteKingCheck(int &,int &,int &,int &,int & );
 bool checkUnderAttackWhite(int &,int &,int &,int &,int &);
 bool blackKingCheck(int &,int &,int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &,int &,int &);
-bool checkMate(int &,int &, int &, int &, int &, int &);
+bool checkMate(int &,int &, int &, int &, int &);
 //Main Function Start
 int main() 
 {
@@ -43,16 +43,27 @@ int main()
     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
     //displaying array by each index.
     for(int k=0;k<=7;k++)
-    {   //Displaying the Row Borders
-        cout<<"------------------------------------------------"<<endl;
+    {   
+        //Displaying the Row Borders
+        if(k==0)
+            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
+        cout<<"---------------------------------------------------"<<endl;
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
             if(l==0)
+                cout<<k+1;
+            if(l==0)
                 cout<<"|";
             cout<<"  "<<chess_board[k][l]<<"  |";
+            if(l==7)
+                cout<<k+1;
         }
         cout<<endl;
+        if(k==7)
+            cout<<"---------------------------------------------------"<<endl;
+        if(k==7)
+            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
 	}
     return 0;
 }
