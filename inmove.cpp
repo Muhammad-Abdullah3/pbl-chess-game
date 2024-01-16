@@ -15,7 +15,7 @@ void inMove(string & move,int & moveNo)
     {
         cout<<"White please enter your Move: ";
         cin>>move;
-        if(move.size()!=5);//including the null character
+        if(move.size()!=5)//including the null character
         {//calling the function again
             cout<<"Input is not in notation.";
             inMove(move,moveNo);
