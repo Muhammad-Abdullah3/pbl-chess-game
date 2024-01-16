@@ -3,13 +3,13 @@
 #include <string>
 using namespace std;
 char chess_board[8][8] = {
-        {'R', 'N', 'B', ' ', 'K','B', 'N', 'R'},
-        {'P', 'P', 'P', 'P', 'R', 'P', 'P', 'P'},
+        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {' ', ' ', ' ', 'q', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', 'Q', ' ', ' ', ' ', ' '},
-        {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
+        {'p', 'p', 'p', 'p', 'r', 'p', 'p', 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 bool legalWhitePawn(int, int, int, int);
@@ -33,12 +33,12 @@ bool whiteKingCheck(int &,int &,int &,int &,int & );
 bool checkUnderAttackWhite(int &,int &,int &,int &,int &);
 bool blackKingCheck(int &,int &,int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &,int &,int &);
-//bool checkmate(int &,int &, int &, int &, int &, int &);
+bool checkMate(int &,int &, int &, int &, int &, int &);
 //Main Function Start
 int main() 
 {
     string move;
-    int moveNo=2;
+    int moveNo=1;
     int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
     //displaying array by each index.
@@ -57,7 +57,7 @@ int main()
     return 0;
 }
 //checkmate for white king
-bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
+bool checkMate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
 {
     //White provides Check Mate
     if(moveNo%2==1)
@@ -842,7 +842,7 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKing
     // legal move generation for each piece
     for (int i = 0; i < 8; i++) 
     {
-        for (int j = 0; j < 7; j++) 
+        for (int j = 0; j < 8; j++) 
         {
             if (chess_board[i][j] == 'p') 
             {
@@ -873,7 +873,7 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKing
                 {
                     return true;
                 }
-            } else if (chess_board[i][j] == 'q') 
+            } else if (chess_board[i][j] == 'k') 
             {
                 if(moveNo%2==1)
                 {    
@@ -1041,7 +1041,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
     {
         if(!(chess_board[frRow][frCol]>='A'&&chess_board[frRow][frCol]<='Z'))
         {
-            cout<<"1"<<frCol<<frRow;
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
         if (chess_board[frRow][frCol]=='P')
@@ -1053,8 +1052,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 chess_board[frRow][frCol] =  ' ';
                 if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
                 {
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     cout<<"Illegal Move";
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
@@ -1074,8 +1073,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 chess_board[frRow][frCol] =  ' ';
                 if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
                 {
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
@@ -1095,8 +1094,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
@@ -1116,8 +1115,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
@@ -1138,8 +1137,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
@@ -1147,7 +1146,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -1169,7 +1167,7 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             cout<<"Illegal Move.";
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
-        if(checkmate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
+        if(checkMate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
         {
             cout<<"White Won by Checkmate.\nPress any key.........";
             getch();
@@ -1194,8 +1192,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 chess_board[frRow][frCol] =  ' ';
                 if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
                 {
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     cout<<"Illegal Move";
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
@@ -1215,9 +1213,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 chess_board[frRow][frCol] =  ' ';
                 if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
                 {
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
-                    
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
@@ -1237,8 +1234,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
@@ -1259,8 +1256,8 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
@@ -1280,15 +1277,14 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
                 {
                     cout<<"Illegal Move.";
-                    chess_board[toRow][toCol] = chess_board[frRow][frCol];
-                    chess_board[frRow][frCol] =  destinationValue;    
+                    chess_board[frRow][frCol] = chess_board[toRow][toCol];
+                    chess_board[toRow][toCol] =  destinationValue;    
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
             else
             {
-                cout<<"Illegal move.";
-                
+                cout<<"Illegal move.";   
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -1312,7 +1308,7 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
     }
-    if(checkmate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
+    if(checkMate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
     {
         cout<<"Black Won by Checkmate.\nPress any key.........";
         getch();
