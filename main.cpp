@@ -13,7 +13,8 @@ void move_piece(string);
 void board_set();
 void instr();
 void addProfile();
-void delProfile();
+bool searchProfile(string& string);
+void deleteProfile(string& name);
 void checkStats();
 void display_board(string,string);
 bool legalWhitePawn(int, int, int, int);
@@ -34,6 +35,8 @@ bool whiteKingCheck(int &,int &,int &);
 bool checkUnderAttackWhite(int &,int &,int &);
 bool blackKingCheck(int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &);
+string name;
+string line;
 //Main Function Start
 int main()
 {
@@ -217,12 +220,47 @@ void instr()
 // Function to add a new player profile
 void addProfile()
 {
-
+	ofstream out("profiles.txt" , ios::app );
+	out<<"Name : "<<name<<endl;
+}
+//Function to search for a profile
+bool searchProfile(string& string)
+{
+	ifstream in("profiles.txt");
+	
+	while (getline(in , line))
+	{
+		if (line.find("Name : " + name) != string::npos)
+		{
+			//name found
+			in.close();
+			return true;
+		}
+	}
+	in.close();
+	return false;
 }
 // Function to delete a players profile
-void delProfile()
+void deleteProfile(string& name)
 {
+    ifstream in("profile.txt");
+    ofstream temp("temp.txt");
 
+    while (getline(in, line))
+    {
+        if (line.find("Name : " + name) == string::npos)
+        {
+            // Copy lines to temp file, except the line with the specified name
+            temp << line << endl;
+        }
+    }
+
+    in.close();
+    temp.close();
+
+    // Rename temp file to the original file
+    remove("profiles.txt");
+    rename("temp.txt", "profiles.txt");
 }
 // Function to check players stats
 void checkStats()
@@ -254,7 +292,7 @@ else if (entr_num==3)
 }
 else if (entr_num==4)
 {
-	delProfile();
+	deleteProfile(name);
 }
 
 else if (entr_num==5)
