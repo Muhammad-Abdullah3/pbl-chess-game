@@ -47,7 +47,7 @@ int main()
         //Displaying the Row Borders
         if(k==0)
             cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
-        cout<<"---------------------------------------------------"<<endl;
+        cout<<" -------------------------------------------------"<<endl;
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
@@ -61,7 +61,7 @@ int main()
         }
         cout<<endl;
         if(k==7)
-            cout<<"---------------------------------------------------"<<endl;
+            cout<<" -------------------------------------------------"<<endl;
         if(k==7)
             cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
 	}
