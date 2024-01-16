@@ -813,40 +813,55 @@ void inMove(string & move,int & moveNo)
 {
     if(moveNo%2==1)
     {
-        cout<<"White please enter your Move: ";
-        cin>>move;
-        if(move.size()!=4);//including the null character
+        cout<<endl<<"White please enter your Move: ";
+		cin>>move;
+        //
+        if(move.length()!=4)//including the null character
         {//calling the function again
+            cout<<endl<<"Wrong Notation.Enter Your move again:";
             inMove(move,moveNo);
         }
-        for(int i=0;i<4;i+2)
+        for(int i=0;i<4;i+=2)
         {
-            if(move.at(i)<'A'||move.at(i)>'H'||move.at(i)<'a'||move.at(i)>'h')
+            if(!((move.at(i)>='A'&&move.at(i)<='H')||(move.at(i)>='a'&&move.at(i)<='h')))
+            {
+                cout<<endl<<"Wrong Notation.Enter Yourmove again:";
                 inMove(move,moveNo);
+            }
         }
-        for(int i=1;i<4;i+2)
+        for(int i=1;i<4;i+=2)
         {
-            if(move.at(i)<'1'||move.at(i)>'8')
+            if(!(move.at(i)>='1'&&move.at(i)<='8'))
+            {
+                cout<<endl<<"Wrong Notation.Enter Yourmove again:";
                 inMove(move,moveNo);
+            }
         }
     }
     else
     {
-        cout<<"Black please enter your Move: ";
+        cout<<endl<<"Black please enter your Move: ";
         cin>>move;
-        if(move.length()!=5);//not including the null character
+        if(move.length()!=4)//including the null character
         {//calling the function again
+            cout<<endl<<"Wrong Notation.Enter Yourmove again:";
             inMove(move,moveNo);
         }
-        for(int i=0;i==0||i==2;i+=2)
+        for(int i=0;i<4;i+=2)
         {
-            if((move.at(i)>='A'&&move.at(i)<='H')||(move.at(i)>='a'&&move.at(i)<='h'))
+            if(!((move.at(i)>='A'&&move.at(i)<='H')||(move.at(i)>='a'&&move.at(i)<='h')))
+            {
+                cout<<endl<<"Wrong Notation.Enter Yourmove again:";
                 inMove(move,moveNo);
+            }
         }
-        for(int i=1;i==1||i==3;i+=2)
+        for(int i=1;i<4;i+=2)
         {
-            if(move.at(i)<'1'||move.at(i)>'8')
+            if(!(move.at(i)>='1'&&move.at(i)<='8'))
+            {
+                cout<<endl<<"Wrong Notation.Enter Yourmove again:";
                 inMove(move,moveNo);
+            }
         }
     }
 }
@@ -859,11 +874,12 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
     convertString(frRow,frCol,toRow,toCol,move);
     if(moveNo%2==1)
     {
-        if(chess_board[frRow][frCol]<'A'||chess_board[frRow][frCol]>'Z')
+        if(!(chess_board[frRow][frCol]>='A'&&chess_board[frRow][frCol]<='Z'))
         {
+            cout<<"1"<<frCol<<frRow;
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
-        else if (chess_board[frRow][frCol]=='P')
+        if (chess_board[frRow][frCol]=='P')
         {
             destinationValue = chess_board[toRow][toCol];
             if(legalWhitePawn(frRow,frCol,toRow,toCol))
@@ -874,14 +890,12 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                 {
                     chess_board[toRow][toCol] = chess_board[frRow][frCol];
                     chess_board[frRow][frCol] =  destinationValue;
-                    
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -902,7 +916,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -918,14 +931,12 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
                     cout<<"Illegal Move.";
                     chess_board[toRow][toCol] = chess_board[frRow][frCol];
                     chess_board[frRow][frCol] =  destinationValue;
-                    
                     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
                 }
             }
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -948,7 +959,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
