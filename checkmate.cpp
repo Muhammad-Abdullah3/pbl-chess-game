@@ -3,12 +3,12 @@
 using namespace std;
 char chess_board[8][8] = {
         {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {' ', 'B', 'P', 'P', 'P', ' ', ' ', 'P'},
+        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {'R', ' ', ' ', 'p', ' ' , 'p' , 'p' , 'p'},
+        {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 bool legalWhitePawn(int, int, int, int);
@@ -32,14 +32,27 @@ bool whiteKingCheck(int &,int &,int &,int &,int & );
 bool checkUnderAttackWhite(int &,int &,int &,int &,int &);
 bool blackKingCheck(int &,int &,int &,int &,int &);
 bool checkUnderAttackBlack(int &,int &,int &,int &,int &);
-bool checkmate(int &,int &, int &, int &, int &, int &);
-
+//bool checkmate(int &,int &, int &, int &, int &, int &);
+//Main Function Start
 int main() 
 {
     string move;
-    int moveNo=2;
+    int moveNo=1;
     int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+    //displaying array by each index.
+    for(int k=0;k<=7;k++)
+    {   //Displaying the Row Borders
+        cout<<"------------------------------------------------"<<endl;
+        //Displaying the Content of each box
+        for(int l=0;l<=7;l++)
+        {
+            if(l==0)
+                cout<<"|";
+            cout<<"  "<<chess_board[k][l]<<"  |";
+        }
+        cout<<endl;
+	}
     return 0;
 }
 //checkmate for white king
@@ -210,7 +223,7 @@ bool legalBlackPawn(int frRow, int frCol, int toRow, int toCol)
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
     else if ((frRow == 6 && toRow == frRow - 2 && toCol == frCol)&&(chess_board[toRow][toCol]=' ')) 
 	{
-        return true;
+       return true;
     }
 
     // Check if the destination is one square diagonally forward to capture an opponent's piece
@@ -228,8 +241,9 @@ bool legalBlackPawn(int frRow, int frCol, int toRow, int toCol)
 //Function to check diagnol Path of the piece
 bool checkDiagnolPath(int frRow, int frCol, int toRow, int toCol) 
 {
+    
     // Check if there are any pieces in the path
-    if (frRow<toRow&&frCol<toCol) 
+    if(frRow<toRow&&frCol<toCol) 
     {
         int row = frRow+1;
         int col = frCol+1;
@@ -401,9 +415,12 @@ bool legalWhiteBishop(int frRow, int frCol, int toRow, int toCol)
     }
 
     // Check if the move is along a diagonal
-    int rowDifference = frRow-toRow;
-    int colDifference = frCol-toCol;
-
+    int rowDifference = abs(frRow-toRow);
+    int colDifference = (frCol-toCol);
+    if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
+    {
+        return true;
+    }
     if (rowDifference == colDifference) {
         // Check if the path is clear
         if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
@@ -436,9 +453,12 @@ bool legalBlackBishop(int frRow, int frCol, int toRow, int toCol)
     }
 
     // Check if the move is along a diagonal
-    int rowDifference = frRow-toRow;
-    int colDifference = frCol-toCol;
-
+    int rowDifference = abs(frRow-toRow);
+    int colDifference = (frCol-toCol);
+    if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
+    {
+        return true;
+    }
     if (rowDifference == colDifference) {
         // Check if the path is clear
         if (checkDiagnolPath(frRow, frCol, toRow, toCol)) 
@@ -469,8 +489,12 @@ bool legalWhiteQueen(int frRow, int frCol, int toRow, int toCol) {
         return false;
     }
     // row and coloumn difference for diagnol checking
-    int rowDifference = frRow - toRow;
-    int colDifference = frCol - toCol;
+    int rowDifference = abs(frRow - toRow);
+    int colDifference = abs(frCol - toCol);
+    if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
+    {
+        return true;
+    }
     // Check if the move is along a row or a coloumn
     if (frRow == toRow || frCol == toCol) {
         // Check if the path is clear
@@ -519,8 +543,12 @@ bool legalBlackQueen(int frRow, int frCol, int toRow, int toCol)
         return false;
     }
     // row and coloumn difference for diagnol checking
-    int rowDifference = frRow - toRow;
-    int colDifference = frCol - toCol;
+    int rowDifference = abs(frRow - toRow);
+    int colDifference = abs(frCol - toCol);
+    if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
+    {
+        return true;
+    }
     // Check if the move is along a row or a coloumn
     if (frRow == toRow || frCol == toCol) {
         // Check if the path is clear
@@ -756,7 +784,7 @@ bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,in
             }
         }
     }
-    checkUnderAttackBlack(blackKingRow,blackKingCol,moveNo,whiteKingRow,whiteKingCol);
+    checkUnderAttackBlack(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo);
 }
 //Under Attack Square Validation
 bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKingRow, int & whiteKingCol,int & moveNo) 
