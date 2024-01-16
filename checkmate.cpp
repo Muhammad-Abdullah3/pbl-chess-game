@@ -1,4 +1,5 @@
 #include <iostream>
+#include <conio.h>
 #include <string>
 using namespace std;
 char chess_board[8][8] = {
@@ -56,12 +57,13 @@ int main()
     return 0;
 }
 //checkmate for white king
-/*bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
+bool checkmate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
 {
-    if(moveNo%2==0)
+    //White provides Check Mate
+    if(moveNo%2==1)
     {
         int temKingRow = 0,temKingCol=0;
-        if(whiteKingCheck(whiteKingRow,whiteKingCol,moveNo))
+        if(whiteKingCheck(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
         {//Check for every legal move of king to avoid check
             int tempCase = 1;
             switch (tempCase)
@@ -166,15 +168,126 @@ int main()
                     break;
                 }
             }    
+            default:
+                return true;
             }
         }
     }
-    /*else
+    //Black Provides check mate
+    else
     {
-        blackKingCheck(blackKingRow,blackKingCol,moveNo);
-        //Check for every legal move of king to avoid check
+        int temKingRow = 0,temKingCol=0;
+        if(blackKingCheck(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
+        {//Check for every legal move of king to avoid check
+            int tempCase = 1;
+            switch (tempCase)
+            {
+            case 1:
+            {
+                temKingRow=blackKingRow,temKingCol = blackKingCol+1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 2:
+            {
+                temKingRow=blackKingRow,temKingCol = blackKingCol-1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 3:
+            {
+                temKingRow=blackKingRow+1,temKingCol = blackKingCol;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 4:
+            {
+                temKingRow=blackKingRow-1,temKingCol = blackKingCol;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 5:
+            {
+                temKingRow=blackKingRow+1,temKingCol = blackKingCol+1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 6:
+            {
+                temKingRow=blackKingRow+1,temKingCol = blackKingCol-1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 7:
+            {
+                temKingRow=blackKingRow-1,temKingCol = blackKingCol+1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+                else
+                {
+                    tempCase ++;
+                }
+            }
+            case 8:
+            {
+                temKingRow=blackKingRow-1,temKingCol = blackKingCol-1;
+                if(legalBlackKing(blackKingRow,blackKingCol,temKingRow,temKingCol,temKingRow,temKingCol,whiteKingRow,whiteKingCol,moveNo))
+                {
+                    return false;
+                    break;
+                }
+            }    
+            default:
+                return true;
+            }
+        }
     }
-}*/
+}
 bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
@@ -919,6 +1032,7 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
     char destinationValue;
     inMove(move,moveNo);
     convertString(frRow,frCol,toRow,toCol,move);
+    //Start of outermost if
     if(moveNo%2==1)
     {
         if(!(chess_board[frRow][frCol]>='A'&&chess_board[frRow][frCol]<='Z'))
@@ -1043,7 +1157,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -1051,6 +1164,13 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
         {
             cout<<"Illegal Move.";
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        }
+        if(checkmate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
+        {
+            cout<<"White Won by Checkmate.\nPress any key.........";
+            getch();
+            system("cls");
+            cout<<"To Play again press y:\n Press any other key to go back to Home menu:";
         }
     }
     //End of outermost if
@@ -1079,7 +1199,6 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             else
             {
                 cout<<"Illegal move.";
-                
                 movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
             }
         }
@@ -1188,6 +1307,13 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
         
             movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
         }
+    }
+    if(checkmate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
+    {
+        cout<<"Black Won by Checkmate.\nPress any key.........";
+        getch();
+        system("cls");
+        cout<<"To Play again press y:\n Press any other key to go back to Home menu:";
     }
     moveNo++;
 }
