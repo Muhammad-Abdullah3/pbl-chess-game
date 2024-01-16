@@ -785,9 +785,8 @@ bool legalWhiteKing(int frRow, int frCol, int toRow, int toCol,int & whiteKingRo
     } else 
     {
         cout << "Invalid king move." << endl;
+        return false;
     }
-
-    return false;
 }
 //Black King
 bool legalBlackKing(int frRow, int frCol, int toRow, int toCol,int & blackKingRow,int & blackKingCol,int &whiteKingRow,int &whiteKingCol,int & moveNo) {
@@ -815,9 +814,8 @@ bool legalBlackKing(int frRow, int frCol, int toRow, int toCol,int & blackKingRo
     } else 
     {
         cout << "Invalid king move." << endl;
+        return false;
     }
-
-    return false;
 }
 //White King Check function
 bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &blackKingRow,int &blackKingCol,int &moveNo)
@@ -834,7 +832,10 @@ bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &blackKingRow,int
             }
         }
     }
-    checkUnderAttackWhite(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo);
+    if(checkUnderAttackWhite(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo))
+    {
+        return true;
+    }
 }
 bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKingRow,int &blackKingCol,int &moveNo) 
 {
@@ -908,7 +909,10 @@ bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,in
             }
         }
     }
-    checkUnderAttackBlack(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo);
+    if(checkUnderAttackBlack(blackKingRow,blackKingCol,whiteKingRow,whiteKingCol,moveNo))
+    {
+        return true;
+    }
 }
 //Under Attack Square Validation
 bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKingRow, int & whiteKingCol,int & moveNo) 
