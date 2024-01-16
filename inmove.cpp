@@ -21,9 +21,9 @@ void inMove(string & move,int & moveNo)
             cout<<"$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"<<move;
             inMove(move,moveNo);
         }
-        for(int i=0;i<4;i+2)
+        for(int i=0;i<4;i+=2)
         {
-            if((move.at(i)<'A'||move.at(i)>'H')||(move.at(i)<'a'||move.at(i)>'h'))
+            if((move.at(i)>='A'&&move.at(i)<='H')||(move.at(i)>='a'&&move.at(i)<='h'))
             {
                 cout<<"Wrong Notation 2";
                 inMove(move,moveNo);
@@ -31,7 +31,7 @@ void inMove(string & move,int & moveNo)
         }
         for(int i=1;i<4;i+=2)
         {
-            if(move.at(i)<'1'||move.at(i)>'8')
+            if(move.at(i)>='1'&&move.at(i)<='8')
             {
                 cout<<"Wrong Notation 3";
                 inMove(move,moveNo);
