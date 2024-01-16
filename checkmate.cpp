@@ -4,12 +4,12 @@
 using namespace std;
 char chess_board[8][8] = {
         {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
-        {' ', ' ', ' ', 'q', ' ', ' ', ' ', ' '},
+        {'P', 'P', 'P', 'P', 'R', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {'p', 'p', 'p', 'p', 'r', 'p', 'p', 'p'},
+        {' ', ' ', ' ', 'Q', ' ', ' ', ' ', ' '},
+        {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
 bool legalWhitePawn(int, int, int, int);
@@ -38,7 +38,7 @@ bool checkMate(int &,int &, int &, int &, int &);
 int main() 
 {
     string move;
-    int moveNo=1;
+    int moveNo=2;
     int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
     //displaying array by each index.
@@ -963,18 +963,11 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKing
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
                 }
             }
-            else
-            {
-                return false;
-            }
+        }
     }
-}
+    return false;
 }
 //Taking input from The User
 void inMove(string & move,int & moveNo)
