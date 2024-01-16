@@ -892,18 +892,11 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKing
                     {
                         return true;
                     }
-                    else
-                    {
-                        return false;
-                    }
                 }
-            }
-            else
-            {
-                return false;
             }
         }
     }
+    return false;
 }
 //Black King Under Check
 bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,int & whiteKingCol,int & moveNo)
