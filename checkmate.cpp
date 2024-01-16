@@ -2,12 +2,12 @@
 #include <string>
 using namespace std;
 char chess_board[8][8] = {
-        {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {'P', ' ', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {'R', 'N', 'B', ' ', 'K','B', 'N', 'R'},
+        {'P', 'P', 'P', 'P', 'R', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', 'Q', ' ', ' ', ' ', ' '},
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
@@ -37,7 +37,7 @@ bool checkUnderAttackBlack(int &,int &,int &,int &,int &);
 int main() 
 {
     string move;
-    int moveNo=1;
+    int moveNo=2;
     int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
     movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
     //displaying array by each index.
@@ -189,7 +189,7 @@ bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     }
 
     // Check if the destination is two squares forward (only allowed if the pawn is in its starting position)
-    else if ((frRow == 1 && (toRow == frRow + 2 && toCol == frCol)) &&(chess_board[toRow][toCol]==' ') ) 
+    else if ((frRow == 1 && (toRow == frRow + 2 && toCol == frCol)) &&(chess_board[toRow][toCol]==' ')) 
 	{
         return true;
     }
@@ -209,13 +209,14 @@ bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
 bool legalBlackPawn(int frRow, int frCol, int toRow, int toCol) 
 {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
-    if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
+    if (frRow<0||frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) 
+    {
     cout << "Invalid chessboard position." <<endl;
         return false;
     }
 
     // Check if the destination is one square forward
-    if ((toRow == frRow - 1 && toCol == frCol)&&(chess_board[toRow][toCol]=' ')) 
+    if ((toRow == frRow - 1 && toCol == frCol)&&(chess_board[toRow][toCol]==' ')) 
 	{
         return true;
     }
@@ -725,11 +726,13 @@ bool whiteKingCheck(int & whiteKingRow ,int & whiteKingCol,int &blackKingRow,int
 bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKingRow,int &blackKingCol,int &moveNo) 
 {
     // legal move generation for each piece
-    for (int i = 0; i < 8; i++) {
-        for (int j = 0; j < 7; j++) {
+    for (int i = 0; i < 8; i++) 
+    {
+        for (int j = 0; j < 7; j++) 
+        {
             if (chess_board[i][j] == 'p') 
             {
-                if (legalBlackPawn(i, j,whiteKingRow,whiteKingCol)) 
+                if ((whiteKingRow == i - 1 && (whiteKingCol == j + 1 || whiteKingCol == j - 1))&&(chess_board[whiteKingRow][whiteKingCol]=='K')) 
                 {
                     return true;
                 }
@@ -764,10 +767,18 @@ bool checkUnderAttackWhite(int & whiteKingRow,int & whiteKingCol,int & blackKing
                     {
                         return true;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
+            }
+            else
+            {
+                return false;
+            }
         }
     }
-}
 }
 //Black King Under Check
 bool blackKingCheck(int & blackKingRow ,int & blackKingCol,int & whiteKingRow,int & whiteKingCol,int & moveNo)
@@ -796,7 +807,7 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKing
         {
             if (chess_board[i][j] == 'P') 
             {
-                if (legalWhitePawn(i, j,blackKingRow,blackKingCol)) 
+                if ((blackKingRow == i - 1 && (blackKingCol == j + 1 || blackKingCol == j - 1))&&(chess_board[blackKingRow][blackKingCol]=='k')) 
                 {
                     return true;
                 }
@@ -831,8 +842,16 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKing
                     {
                         return true;
                     }
+                    else
+                    {
+                        return false;
+                    }
                 }
-        }
+            }
+            else
+            {
+                return false;
+            }
     }
 }
 }
