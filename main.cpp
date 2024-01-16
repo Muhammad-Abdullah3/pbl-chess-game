@@ -281,14 +281,27 @@ void display_board(string a,string b)
 {
 	//displaying array by each index.
     for(int k=0;k<=7;k++)
-    {   //Displaying the Row Borders
-        cout<<"--------------------------------"<<endl;
+    {   
+        //Displaying the Row Borders
+        if(k==0)
+            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
+        cout<<"---------------------------------------------------"<<endl;
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
         {
-            cout<<" "<<chess_board[k][l]<<" |";
+            if(l==0)
+                cout<<k+1;
+            if(l==0)
+                cout<<"|";
+            cout<<"  "<<chess_board[k][l]<<"  |";
+            if(l==7)
+                cout<<k+1;
         }
         cout<<endl;
+        if(k==7)
+            cout<<"---------------------------------------------------"<<endl;
+        if(k==7)
+            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
 	}
 }
 void move_piece(string a)
