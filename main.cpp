@@ -3,20 +3,26 @@
 #include<conio.h>
 #include<fstream>
 #include<string>
-#include<stdio.h>
 using namespace std;
-char chess_board[8][8] = {' '};
-void home_menu();
-void new_game();
-//moving a piece
-void move_piece(string);
-void board_set();
+char chess_board[8][8] = {{'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
+        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
+        {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
+        {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
+    };
+;
+void homeMenu();
+void newGame();
 void instr();
 void addProfile();
-bool searchProfile(string& string);
-void deleteProfile(string& name);
+void createStatFile(string &);
+bool searchProfile(string &);
+void deleteProfile(string & name);
 void checkStats();
-void display_board(string,string);
+void displayBoard();
 bool legalWhitePawn(int, int, int, int);
 bool legalBlackPawn(int, int, int, int);
 bool checkDiagnolPath(int,int,int,int);
@@ -44,169 +50,26 @@ string line;
 //Main Function Start
 int main()
 {
-	home_menu();
+	homeMenu();
     return 0;
 }
 //Main Function Ends
 
 //New Game Function
-void new_game()
+void newGame()
 {
 	system("CLS");
-	//variable to count the player turn
-	int tot_mov = 0;
-	//variable to count black and white's turn individually
-	int white_mov = 0, black_mov = 0;
-	/*
+	//variable to count the move Number
+	int moveNo = 1;
+    string move;
+    int whiteKingRow = 0,whiteKingCol = 4,blackKingRow = 7,blackKingCol = 4;
+    /*string player1,player2;
 	cout<<"Chose player 1:";
-	cout<<"Chose Player 2:";
-	
-	
-	Player chosing code
-	
-	*/
-	//calling board set function
-	board_set();
-}
-//Setting board pieces for the first time in array
-void board_set()
-{
-    //White pawns
-    for(int i=1;i==1;i++)
+	cout<<"Chose Player 2:";*/
+    while(!(checkMate(whiteKingRow,whiteKingCol,blackKingRow,blackKingCol,moveNo)))
     {
-        for(int j=0;j<8;j++)
-        {
-            chess_board[i][j]='P';
-        }
+        movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
     }
-    //Black Pawns
-    for(int i=6;i==6;i++)
-    {
-        for(int j=0;j<8;j++)
-        {
-            chess_board[i][j]='p';
-        }
-    }
-    //white rook
-    for (int i=0;i==0;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==0||j==7)
-			{
-    		 chess_board[i][j]='R';
-			}
-
-		}
-	}
-	//Black rook.
-    for (int i=7;i==7;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==0||j==7)
-			{
-    		    chess_board[i][j]='r';
-			}
-
-		}
-	}
-	//white Knight.
-	for (int i=0;i==0;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==1||j==6)
-			{
-    		    chess_board[i][j]='N';
-			}
-
-		}
-	}
-	//Black knight
-	for (int i=7;i==7;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==1||j==6)
-			{
-    		    chess_board[i][j]='n';
-			}
-
-		}
-	}
-	//White Bishop.
-	for (int i=0;i==0;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==2||j==5)
-			{
-    		    chess_board[i][j]='B';
-			}
-
-		}
-	}
-	//Black bishop
-	  for (int i=7;i==7;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==2||j==5)
-			{
-    		    chess_board[i][j]='b';
-			}
-
-		}
-	}
-	//White Queen
-	for (int i=0;i==0;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==3)
-			{
-    		    chess_board[i][j]='Q';
-			}
-
-		}
-	}
-	//Black queen
-	for (int i=7;i==7;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==3)
-			{
-    		    chess_board[i][j]='q';
-			}
-
-		}
-	}
-	//White king
-	for (int i=0;i==0;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==4)
-			{
-    		    chess_board[i][j]='K';
-			}
-
-		}
-	}
-	//black King
-	  for (int i=7;i==7;i++)
-    {
-    	for (int j=0;j<8;j++)
-    	{
-    		if (j==4)
-			{
-    		    chess_board[i][j]='k';
-			}
-
-		}
-	}
 }
 //Function to show instructions
 void instr()
@@ -220,17 +83,59 @@ void instr()
 	cout<<"\n9- Alphabet 'q/Q' is used to for Queens.\n10- Alphabet 'k/K' is used to for Kings.";
 	cout<<"\n11- The last move will be shown in a sidebar.\n12-Every time a check takes place, an alarm will be given to the checked player.";
 	cout<<"\n13- At checkmate, the game will come to an end. \n 13- The stats are stored in a text file of both players in their profile.";
+    cout<<"\nPress any key to go back to home Menu.";
+    getch();
+    homeMenu();
 }
 // Function to add a new player profile
-void addProfile()
+void addProfile() {
+    string newProfile;
+
+    // Ask the user to add the new Profile
+    cout << "Enter the new profile name: ";
+    getline(cin, newProfile);
+    //Appending the new Profile in the Profiles.txt file
+    fstream profFile("Profiles.txt",ios::app);
+    profFile<<endl<<newProfile;
+    // Append ".txt" to the entered name to create the file name
+    newProfile += ".txt";
+    // Create a stats file for new Profile
+    createStatFile(newProfile);
+    //Ask the user for his choice if user wants to add a new profile or not
+    system("cls");
+    int choice;
+    cout<<"To add another Profile please press 1:\nTo go back to home menu Press any other key\nEnter your Choice:";
+    cin>>choice;
+    switch (choice)
+    {
+    case 1:
+        addProfile();
+        break;
+    default:
+        break;
+    }
+}
+//Create Stat File
+void createStatFile(string &a)
 {
-	ofstream out("profiles.txt" , ios::app );
-	out<<"Name : "<<name<<endl;
+    ofstream statFile(a);
+    statFile<<setw(25)<<left<<"Total Games"<<setw(15)<<left<<"Won"<<setw(15)<<left<<"Lost"<<setw(15)<<left<<"Draws";
+    // Check if the file is successfully created
+    if (statFile.is_open()) {
+        cout << "Stat file \"" << a << "\" created successfully." << endl;
+        statFile.close();
+        getch();
+    } else {
+        cerr << "Error creating the text file." << endl;
+        createStatFile(a);
+        getch();
+    }
+    statFile.close();
 }
 //Function to search for a profile
-bool searchProfile(string& string)
+bool searchProfile(string & name)
 {
-	ifstream in("profiles.txt");
+	ifstream in("Profiles.txt");
 	
 	while (getline(in , line))
 	{
@@ -271,7 +176,7 @@ void checkStats()
 {
 
 }
-void home_menu()
+void homeMenu()
 {
 	int entr_num=0;
 	cout<<"Welcome to the Game:"<<endl;
@@ -284,7 +189,7 @@ void home_menu()
     cin>>entr_num;
 	if (entr_num==1)
 {
-    new_game();
+    newGame();
 }
 else if(entr_num==2)
 {
@@ -315,18 +220,19 @@ else
 	cout<<"Your choice is invalid. Press any key to go back to home menu: ";
 	getch();
 	system("CLS");
-	home_menu();
+	homeMenu();
 }
 }
 //Displaying the board
-void display_board(string a,string b)
+void displayBoard()
 {
+    cout<<"------Player 1: White-------"<<endl;
 	//displaying array by each index.
     for(int k=0;k<=7;k++)
     {   
         //Displaying the Row Borders
         if(k==0)
-            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
+            cout<<"    A     B     C     D     E     F     G     H   "<<endl;
         cout<<" -------------------------------------------------"<<endl;
         //Displaying the Content of each box
         for(int l=0;l<=7;l++)
@@ -335,7 +241,10 @@ void display_board(string a,string b)
                 cout<<k+1;
             if(l==0)
                 cout<<"|";
-            cout<<"  "<<chess_board[k][l]<<"  |";
+            if(chess_board[k][l]!=' ')
+                cout<<"  "<<chess_board[k][l]<<"  |";
+            else
+                cout<<"   "<<chess_board[k][l]<<" |";
             if(l==7)
                 cout<<k+1;
         }
@@ -343,8 +252,9 @@ void display_board(string a,string b)
         if(k==7)
             cout<<" -------------------------------------------------"<<endl;
         if(k==7)
-            cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
+            cout<<"    A     B     C     D     E     F     G     H   "<<endl;
 	}
+    cout<<"------Player 2: Black-------";
 }
 //checkmate for white king
 bool checkMate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & blackKingCol, int & moveNo) 
@@ -1309,6 +1219,7 @@ void inMove(string & move,int & moveNo)
 //Moving Piece
 void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCol,int & blackKingRow, int & blackKingCol)
 {
+    displayBoard();
     int frRow,frCol,toRow,toCol;
     char destinationValue;
     inMove(move,moveNo);
@@ -1449,7 +1360,17 @@ void movePiece(string & move, int & moveNo, int & whiteKingRow,int & whiteKingCo
             cout<<"White Won by Checkmate.\nPress any key.........";
             getch();
             system("cls");
-            cout<<"To Play again press y:\n Press any other key to go back to Home menu:";
+            char ch;
+            cout<<"To Play again press [y/Y]:\n Press any other key to go back to Home menu:";
+            cin>>ch;
+            if(ch=='y'||ch=='Y')
+            {
+                newGame();
+            }
+            else
+            {
+                homeMenu();
+            }
         }
     }
     //End of outermost if
