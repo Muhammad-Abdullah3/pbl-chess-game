@@ -4,11 +4,11 @@
 using namespace std;
 char chess_board[8][8] = {
         {'R', 'N', 'B', 'Q', 'K','B', 'N', 'R'},
-        {'P', 'P', 'P', 'P', 'R', 'P', 'P', 'P'},
+        {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-        {' ', ' ', ' ', 'Q', ' ', ' ', ' ', ' '},
+        {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
         {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'},
         {'r', 'n', 'b', 'q', 'k', 'b', 'n', 'r'}
     };
@@ -38,12 +38,15 @@ bool checkMate(int &,int &, int &, int &, int &);
 int main() 
 {
     string move;
-    int moveNo=2;
+    int moveNo=1;
     int whiteKingRow=0,whiteKingCol=4,blackKingRow=7,blackKingCol=4;
-    movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+    while(moveNo<50)
+        {
+            movePiece(move,moveNo,whiteKingRow,whiteKingCol,blackKingRow,blackKingCol);
+        
     //displaying array by each index.
     for(int k=0;k<=7;k++)
-    {   
+        {   
         //Displaying the Row Borders
         if(k==0)
             cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
@@ -64,7 +67,8 @@ int main()
             cout<<" -------------------------------------------------"<<endl;
         if(k==7)
             cout<<"    A  |  B  |  C  |  D  |  E  |  F  |  G  |  H  |"<<endl;
-	}
+	    }
+    }
     return 0;
 }
 //checkmate for white king
@@ -302,7 +306,7 @@ bool checkMate(int & whiteKingRow,int &whiteKingCol,int & blackKingRow,int & bla
 bool legalWhitePawn(int frRow, int frCol, int toRow, int toCol) {
     // Ensure the source and destination are within the chessboard boundaries (0 to 7 for ranks, 'A' to 'H' for files)
     if (frRow < 0 || frRow > 7 || toRow < 0 || toRow > 7 || frCol < 0 || frCol > 7 || toCol < 0 || toCol > 7) {
-    cout << "Invalid chessboard position." <<endl;
+        cout << "Invalid chessboard position." <<endl;
         return false;
     }
 
@@ -526,7 +530,7 @@ bool legalBlackRook(int frRow, int frCol, int toRow, int toCol)
         }
     } else 
 	{
-        cout << "Invalid rook move." << endl;
+        cout << "Invalid Rook move." << endl;
     }
     return false;
 }
@@ -541,7 +545,7 @@ bool legalWhiteBishop(int frRow, int frCol, int toRow, int toCol)
 
     // Check if the move is along a diagonal
     int rowDifference = abs(frRow-toRow);
-    int colDifference = (frCol-toCol);
+    int colDifference = abs(frCol-toCol);
     if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
     {
         return true;
@@ -579,7 +583,7 @@ bool legalBlackBishop(int frRow, int frCol, int toRow, int toCol)
 
     // Check if the move is along a diagonal
     int rowDifference = abs(frRow-toRow);
-    int colDifference = (frCol-toCol);
+    int colDifference = abs(frCol-toCol);
     if ((rowDifference==1&&colDifference==1)&&(chess_board[toRow][toCol] == ' ' ||(chess_board[toRow][toCol]>='a'&&chess_board[toRow][toCol]<='z')))
     {
         return true;
@@ -602,7 +606,7 @@ bool legalBlackBishop(int frRow, int frCol, int toRow, int toCol)
         }
     } else 
     {
-        cout << "Invalid bishop move." << endl;
+        cout << "Invalid Bishop move." << endl;
     }
     return false;
 }
@@ -656,7 +660,6 @@ bool legalWhiteQueen(int frRow, int frCol, int toRow, int toCol) {
     {
         cout << "Invalid queen move." << endl;
     }
-
     return false;
 }
 //Check Black Queen
@@ -710,7 +713,7 @@ bool legalBlackQueen(int frRow, int frCol, int toRow, int toCol)
         }        
     } else 
     {
-        cout << "Invalid queen move." << endl;
+        cout << "Invalid Queen move." << endl;
     }
 
     return false;
@@ -761,11 +764,11 @@ bool legalBlackKnight(int frRow, int frCol, int toRow, int toCol) {
             return true;
         } else 
         {
-            cout << "Invalid knight move. Destination square is occupied by a white piece." << endl;
+            cout << "Invalid Knight move. Destination square is occupied by a white piece." << endl;
         }
     } else 
     {
-        cout << "Invalid knight move." << endl;
+        cout << "Invalid Knight move." << endl;
         return false;
     }
 }
@@ -824,7 +827,7 @@ bool legalBlackKing(int frRow, int frCol, int toRow, int toCol,int & blackKingRo
         }
     } else 
     {
-        cout << "Invalid king move." << endl;
+        cout << "Invalid King move." << endl;
         return false;
     }
 }
@@ -946,7 +949,9 @@ bool checkUnderAttackBlack(int & blackKingRow,int & blackKingCol,int & whiteKing
                 }
             } else if (chess_board[i][j] == 'B')
             {
-                if (legalWhiteBishop(i, j,blackKingCol,blackKingRow)) {
+                if (legalWhiteBishop(i, j,blackKingCol,blackKingRow)) 
+                {
+                    cout<<"King is in Check";
                     return true;
                 }
             } else if (chess_board[i][j] == 'Q') 
